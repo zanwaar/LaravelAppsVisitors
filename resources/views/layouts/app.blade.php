@@ -8,8 +8,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <title>{{ setting('site_title') }} | {{ setting('site_name') }}</title>
-    <link rel="stylesheet" href="/css/app.css">
+    @stack('jsheader')
     <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/app.css">
     @stack('styles')
     <livewire:styles />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +26,7 @@
             <div class="sidebar-header">
                 <h3 class="text-info"><img src="https://ui-avatars.com/api/?rounded=true&background=5F9DF7&color=fff&name={{setting('site_title') }}" class="img-fluid" /><span>{{setting('site_title') }}</span></h3>
             </div>
-            <ul class="list-unstyled components">
+            <ul class="list-unstyled components custom">
                 <li class="{{ request()->is('dashboard') ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
                 </li>
@@ -114,6 +115,7 @@
     </div>
     <script src="/js/app.js"></script>
     <script src="/js/backend.js"></script>
+
     @stack('js')
     @stack('before-livewire-scripts')
     <livewire:scripts />

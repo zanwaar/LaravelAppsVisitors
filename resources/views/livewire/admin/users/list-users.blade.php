@@ -187,7 +187,7 @@
                                             {{ $photo->getClientOriginalName() }}
                                             @else
                                             Choose Image
-                                            @endif
+                                            @endif  
                                         </label>
                                     </div>
 

@@ -14,7 +14,7 @@
                     <option value="360">360 days</option>
                     <option value="MTD">Month to Date</option>
                     <option value="YTD">Year to Date</option>
-                </select>
+                </select>  
             </div>
             <p>Users</p>
         </div>

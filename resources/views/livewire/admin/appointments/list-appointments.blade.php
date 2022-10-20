@@ -31,30 +31,10 @@
                             </a>
                             @endcan
 
-
                             @if ($selectedRows)
-                            <!-- <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown button
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a wire:click.prevent="deleteSelectedRows" class="dropdown-item" href="#">Delete Selected</a></li>
-                                    <li><a wire:click.prevent="markAllAsScheduled" class="dropdown-item" href="#">Mark as Scheduled</a></li>
-                                    <li><a wire:click.prevent="markAllAsClosed" class="dropdown-item" href="#">Mark as Closed</a></li>
-                                    <li><a wire:click.prevent="export" class="dropdown-item" href="#">Export</a></li>
-                                </ul>
-                            </div> -->
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                    Dropdown button
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                            <!-- <div class="btn-group ml-2">
+
+
+                            <div class="btn-group ml-2">
                                 <button type="button" class="btn btn-default">Bulk Actions</button>
                                 <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" id="menu">
                                     <span class="sr-only">Toggle Dropdown</span>
@@ -65,7 +45,7 @@
                                     <a wire:click.prevent="markAllAsClosed" class="dropdown-item" href="#">Mark as Closed</a>
                                     <a wire:click.prevent="export" class="dropdown-item" href="#">Export</a>
                                 </div>
-                            </div> -->
+                            </div>
 
                             <span class="ml-2">selected {{ count($selectedRows) }} {{ Str::plural('appointment', count($selectedRows)) }}</span>
                             @endif

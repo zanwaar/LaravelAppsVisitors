@@ -37,7 +37,7 @@
         toastr.success(event.detail.message, "Success!");
     });
     window.addEventListener("alert-danger", function (event) {
-        toastr.success(event.detail.message, "Success!");
+        toastr.error(event.detail.message, "danger!");
     });
     window.addEventListener("updated", function (event) {
         toastr.danger(event.detail.message, "Warning!");

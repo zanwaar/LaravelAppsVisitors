@@ -12,6 +12,7 @@ use App\Models\Tamu;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Return_;
 
 class CreateTamu extends Component
@@ -19,6 +20,27 @@ class CreateTamu extends Component
     public $state = [];
     public $show = false;
     public $mtamu;
+    public $photo;
+    public $nsearch = null;
+
+    public function cancel()
+    {
+        $this->reset();
+    }
+    public function createphoto()
+    {
+        $img = $this->state['foto'];
+        $folderPath = "public/upload/";
+        $image_parts = explode(";base64,", $img);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+        $fileName = uniqid() . '.png';
+        $file = $folderPath . $fileName;
+        Storage::put($file, $image_base64);
+        $this->photo = $fileName;
+    }
+
     public function create()
     {
 
@@ -26,23 +48,25 @@ class CreateTamu extends Component
             'nama' => 'required',
             'instansi' => 'required',
             'jenisid' => 'required',
-            'ni' => 'required',
+            'ni' => 'required|unique:tamus',
             'alamat' => 'required',
-            'foto' => 'required',
             'jk' => 'required',
+            'foto' => 'required',
             'tenant' => 'required',
             'keperluan' => 'required',
         ])->validate();
+
         DB::beginTransaction();
         try {
+            $this->createphoto();
             $tamu = Tamu::create([
                 'nama' => $this->state['nama'],
                 'instansi' => $this->state['instansi'],
                 'jenisid' => $this->state['jenisid'],
                 'ni' => $this->state['ni'],
                 'jk' => $this->state['jk'],
+                'foto' => $this->photo,
                 'alamat' => $this->state['alamat'],
-                'foto' => $this->state['foto'],
             ]);
             Logtamu::create(
                 [
@@ -61,6 +85,10 @@ class CreateTamu extends Component
 
         $this->dispatchBrowserEvent('alert', ['message' => 'created successfully!']);
         $this->state = [];
+        $this->show = false;
+
+
+
         // return redirect()->route('daftartamu');
     }
     public function update()
@@ -72,14 +100,13 @@ class CreateTamu extends Component
             'jenisid' => 'required',
             'ni' => 'required',
             'alamat' => 'required',
-            'foto' => 'required',
             'jk' => 'required',
             'tenant' => 'required',
             'keperluan' => 'required',
         ])->validate();
         $xheck =  Logtamu::where('tamu_id', $this->mtamu->id)->where('checkout', null)->first();
         if ($xheck) {
-            return $this->dispatchBrowserEvent('alert', ['message' => 'Maaf Tamu Belum Check OUT!']);
+            return $this->dispatchBrowserEvent('alert-danger', ['message' => 'Maaf Tamu Belum Check OUT!']);
         }
         DB::beginTransaction();
         try {
@@ -107,6 +134,19 @@ class CreateTamu extends Component
         $this->show = true;
         $this->mtamu = $tamu;
         $this->state = $tamu->toArray();
+        // $this->dispatchBrowserEvent('show-form');
+    }
+    public function fsearch()
+    {
+        $s = Tamu::Where('ni', $this->nsearch)->first();
+        if (!$s) {
+            $this->reset();
+            return $this->dispatchBrowserEvent('alert-danger', ['message' => 'Maaf data tidak di temukan']);
+        }
+        $this->reset();
+        $this->show = true;
+        $this->mtamu = $s;
+        $this->state = $s->toArray();
         // $this->dispatchBrowserEvent('show-form');
     }
     public function render()

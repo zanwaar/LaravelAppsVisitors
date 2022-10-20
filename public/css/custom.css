@@ -18,9 +18,9 @@ body, html {
     width: 100%;
 }
 
-a{
-	color: #333;
-	font-weight: 400;
+a {
+	color: #333 !important;
+	font-weight: 400 !important;
 }
 
 
@@ -32,7 +32,7 @@ ul, ol {
 
 
 
-a,
+
 a:hover,
 a:focus {
     color: #333;
@@ -177,7 +177,7 @@ a:focus {
     background-color: rgba(200, 200, 200, 0.2);
 }
 
-.dropdown-toggle::after {
+.custom .dropdown-toggle::after {
     position: absolute;
     right: 10px;
     top: 23px;
@@ -302,19 +302,20 @@ a:focus {
 }
 
 
- .navbar-nav > li.show .dropdown-menu {
+ .navbar-nav > li.show .custom .dropdown-menu {
     transform: translate3d(0, 0, 0);
 	opacity:1;
 	visibility:visible;
 }
 
 
-.dropdown-menu li > a {
+.custom .dropdown-menu li > a {
     font-size: 13px;
     padding: 10px 20px;
     margin: 0 5px;
     border-radius: 2px;
 	font-weight: 400;
+    color: #000;
     transition: all 150ms linear;
 }
 
@@ -371,7 +372,7 @@ a:focus {
 	transition:all 0.5s ease;
 }
 
-#sidebar.active .dropdown-toggle::after {
+#sidebar.active .custom .dropdown-toggle::after {
     display:none;
 	transition:all 0.5s ease;
 }
@@ -402,7 +403,7 @@ a:focus {
 
 
 @media only screen and (min-width:992px){
-.dropdown-menu {
+.custom .dropdown-menu {
     border: 0;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 26%);
 	transform: translate3d(0, -20px, 0);

@@ -70,7 +70,7 @@ class ListUsers extends AdminComponent
 	}
 
 	public function addNew()
-	{
+	{ 
 		$this->reset();
 
 		$this->showEditModal = false;
