@@ -26,6 +26,16 @@
     window.addEventListener("show-form", function (event) {
         $("#form").modal("show");
     });
+    window.addEventListener("webcam", function (event) {
+        $("#modal-webcam").modal("show");
+        Webcam.set({
+            width: 470,
+            height: 350,
+            image_format: "jpeg",
+            jpeg_quality: 90,
+        });
+        Webcam.attach("#my_camera");
+    });
     window.addEventListener("show-delete-modal", function (event) {
         $("#confirmationModal").modal("show");
     });

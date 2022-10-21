@@ -201,12 +201,12 @@
 
                         @if (!$show)
                         <div class="card-body">
-                            <button type="button" class="btn btn-info mb-3 btn-sm" data-toggle="modal" data-target="#exampleModal">
+                            <button type="button" class="btn btn-info mb-3 btn-sm" data-toggle="modal" wire:click.prevent="fwebcam">
                                 Take Snapshot
                             </button>
                             <input type="hidden" wire:model="state.foto" class="image-tag">
                             <div class="form-group">
-                                <div id="results">Your captured image will appear here...</div>
+                                <img id="image-webcam" src="{{ $twebcam }}" class="img d-block mt-2 w-100 rounded">
                                 @error('foto')
                                 <p class="text-danger">
                                     {{ $message }}
@@ -215,7 +215,7 @@
                             </div>
                         </div>
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="modal-webcam" tabindex="-1" role="dialog" aria-labelledby="modal-webcamLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
 
@@ -229,7 +229,7 @@
                                 </div>
                             </div>
                         </div>
-                        @include('livewire/tamu/tamu-js')
+
                         @else
                         <div class="card-body">
                             <input type="hidden" wire:model="state.foto" class="image-tag">
@@ -246,3 +246,5 @@
     <!-- /.col -->.
     <!-- Button trigger modal -->
 </div>
+
+@include('livewire/tamu/tamu-js')

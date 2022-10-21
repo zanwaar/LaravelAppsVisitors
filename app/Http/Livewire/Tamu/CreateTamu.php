@@ -21,11 +21,16 @@ class CreateTamu extends Component
     public $show = false;
     public $mtamu;
     public $photo;
+    public $twebcam;
     public $nsearch = null;
 
     public function cancel()
     {
         $this->reset();
+    }
+    public function fwebcam()
+    {
+        $this->dispatchBrowserEvent('webcam');
     }
     public function createphoto()
     {
@@ -43,7 +48,7 @@ class CreateTamu extends Component
 
     public function create()
     {
-
+        $this->twebcam = $this->state['foto'];
         Validator::make($this->state, [
             'nama' => 'required',
             'instansi' => 'required',
@@ -84,8 +89,7 @@ class CreateTamu extends Component
         }
 
         $this->dispatchBrowserEvent('alert', ['message' => 'created successfully!']);
-        $this->state = [];
-        $this->show = false;
+        $this->reset();
 
 
 
@@ -123,8 +127,7 @@ class CreateTamu extends Component
             throw $th;
         }
         $this->dispatchBrowserEvent('alert', ['message' => 'created successfully!']);
-        $this->state = [];
-        $this->show = false;
+        $this->reset();
         // return redirect()->route('daftartamu');
     }
     public function edit(Tamu $tamu)

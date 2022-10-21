@@ -33,12 +33,12 @@
                 <li class="dropdown {{ request()->is('bukuTamu') ? 'active' : '' }}">
                     <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">library_books</i><span>Buku Tamu</span></a>
-                    <ul class="collapse list-unstyled menu {{ request()->is('bukuTamu') ? 'show' : '' }}" id="pageSubmenu2">
+                    <ul class="collapse list-unstyled menu {{ request()->is('bukuTamu') |  request()->is('listMagang')  ? 'show' : '' }}" id="pageSubmenu2">
                         <li class="{{ request()->is('bukuTamu') ? 'active mt-2 rounded' : '' }}">
                             <a href="{{ route('tamu') }}"> <i class="material-icons">trip_origin</i>Buku Tamu</a>
                         </li>
-                        <li>
-                            <a href="#"> <i class="material-icons">trip_origin</i>Buku Pkl/Magang</a>
+                        <li class="{{ request()->is('listMagang') ? 'active mt-2 rounded' : '' }}">
+                            <a href="{{ route('listmagang') }}"> <i class="material-icons">trip_origin</i>Buku Pkl/Magang</a>
                         </li>
                     </ul>
                 </li>
