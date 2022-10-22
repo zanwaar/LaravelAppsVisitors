@@ -16,7 +16,7 @@ class CreateLogtamusTable extends Migration
         Schema::create('logtamus', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('tamu_id')->constrained()->cascadeOnDelete();
-            $table->string('bagian_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('bagian_id')->constrained()->cascadeOnDelete();
             $table->string('keperluan');
             $table->dateTime('checkin');
             $table->dateTime('checkout')->nullable();

@@ -137,10 +137,10 @@
         </div>
 
         <!-- /.col -->.
-
+    </section>
 </div>
 <!-- /.row -->
-</section>
+
 <!-- /.conte
 </div>
  

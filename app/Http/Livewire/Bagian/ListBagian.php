@@ -14,7 +14,7 @@ class ListBagian extends Component
     public $idBeingRemoved = null;
     public $mbagian;
 
-    public function addNew()
+    public function addNew() 
     {
         $this->reset();
 

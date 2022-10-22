@@ -14,7 +14,14 @@ class CreateMagangsTable extends Migration
     public function up()
     {
         Schema::create('magangs', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('bagian_id')->constrained()->cascadeOnDelete();
+            $table->string('nama');
+            $table->string('sekolah');
+            $table->date('tglmulai')->nullable();
+            $table->date('tglselesai')->nullable();
+            $table->boolean('status')->default(false);
+            $table->string('pembimbing');
             $table->timestamps();
         });
     }

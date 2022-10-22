@@ -2,29 +2,20 @@
 
 namespace App\Http\Livewire\Tamu;
 
+use App\Http\Livewire\Admin\AdminComponent;
 use App\Models\Logtamu as ModelsLogtamu;
 use Livewire\Component;
 
-class LogTamu extends Component
-{
-
+class LogTamu extends AdminComponent
+{ 
     public $selectedRows = [];
-
-
     public $selectPageRows = false;
-
     public $searchTerm = null;
-
     public $option = 'TODAY';
-    public function mount()
-    {
-        $this->logtamu;
-    }
     public function camcel()
     {
         $this->logtamu;
     }
-
     public function updatedSelectPageRows($value)
     {
         if ($value) {
