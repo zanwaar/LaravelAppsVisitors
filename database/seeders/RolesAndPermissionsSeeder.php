@@ -43,7 +43,7 @@ class RolesAndPermissionsSeeder extends Seeder
             $roleOperator = Role::create(['name' => 'operator']);
             $roleAdmin = Role::create(['name' => 'admin']);
 
-         
+
             Permission::create(['name' => 'read role']);
             Permission::create(['name' => 'create role']);
             Permission::create(['name' => 'update role']);
@@ -71,14 +71,6 @@ class RolesAndPermissionsSeeder extends Seeder
 
             $operator->assignRole('operator');
             $admin->assignRole('admin');
-
-            Bagian::create([
-                'namaTenant' => 'Ruang Ophar UPDK',
-                'penanggungJawab' => 'Wawan Hudayana',
-                'tlpn' => '0811422103',
-                'email' => 'wawan.hudayana@pln.co.id',
-                'lantaiTenant' => 'UPDK Lt. 1',
-            ]);
 
             DB::commit();
         } catch (\Throwable $th) {

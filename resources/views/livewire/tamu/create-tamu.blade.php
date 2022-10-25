@@ -187,7 +187,7 @@
                             <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i>
                                 <span>Save</span>
                             </button>
-                            <button wire:click.prevent="cancel" type="button" class="btn btn-secondary"><i class="fa fa-save mr-1"></i>
+                            <button wire:click.prevent="cancel" type="button" class="btn btn-secondary"><i class="fa fa-times mr-1"></i>
                                 Cancel
                             </button>
                         </div>

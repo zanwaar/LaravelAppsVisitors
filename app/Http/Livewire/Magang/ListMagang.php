@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Magang;
 
-use App\Http\Livewire\Admin\AdminComponent;
+use App\Http\Livewire\Admin\AdminComponent; 
 use App\Models\Bagian;
 use App\Models\Magang;
 use Illuminate\Support\Facades\Validator;
@@ -11,6 +11,7 @@ use Livewire\Component;
 class ListMagang extends AdminComponent
 {
     public $state = [];
+    public $mMagang;
     public $showEditModal = false;
     public $idBeingRemoved = null;
     public $selectedRows = [];
@@ -41,6 +42,36 @@ class ListMagang extends AdminComponent
         Magang::create($validatedData);
         $this->dispatchBrowserEvent('hide-form', ['message' => 'added successfully!']);
     }
+    public function edit(Magang $magang)
+    {
+        $this->reset();
+
+        $this->showEditModal = true;
+
+        $this->mMagang = $magang;
+
+        $this->state = $magang->toArray();
+
+        $this->dispatchBrowserEvent('show-form');
+    }
+
+    public function update()
+    {
+
+        $validatedData = Validator::make($this->state, [
+            'nama' => 'required',
+            'bagian_id' => 'required',
+            'sekolah' => 'required',
+            'tglmulai' => 'required',
+            'tglselesai' => 'required',
+            'status' => 'required',
+            'pembimbing' => 'required',
+        ])->validate();
+
+        $this->mMagang->update($validatedData);
+
+        $this->dispatchBrowserEvent('hide-form', ['message' => 'updated successfully!']);
+    }
     public function updatedSelectPageRows($value)
     {
         if ($value) {
@@ -52,9 +83,32 @@ class ListMagang extends AdminComponent
         }
     }
 
+    public function confirmRemoval($id)
+    {
+        $this->idBeingRemoved = $id['id'];
+
+        $this->dispatchBrowserEvent('show-delete-modal');
+    }
+
+    public function delete()
+    {
+        $magang = Magang::findOrFail($this->idBeingRemoved);
+
+        $magang->delete(); 
+
+        $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'deleted successfully!']);
+    }
     public function getMagangProperty()
     {
-        return Magang::latest()->with(['bagian'])->paginate(10);
+        return Magang::latest()->with(['bagian'])
+        ->whereRelation('bagian', 'namaTenant', 'like', '%' . $this->searchTerm . '%')
+            ->orwhere('nama', 'like', '%' . $this->searchTerm . '%')
+            ->orwhere('sekolah', 'like', '%' . $this->searchTerm . '%')
+            ->orwhere('status', 'like', '%' . $this->searchTerm . '%')
+            ->orwhere('pembimbing', 'like', '%' . $this->searchTerm . '%')
+            ->orwhere('tglmulai', 'like', '%' . $this->searchTerm . '%')
+            ->orwhere('tglselesai', 'like', '%' . $this->searchTerm . '%')
+            ->paginate(10);
     }
     public function render()
     {

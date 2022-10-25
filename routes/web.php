@@ -12,6 +12,7 @@ use App\Http\Livewire\Admin\Appointments\UpdateAppointmentForm;
 use App\Http\Livewire\Admin\Messages\ListConversationAndMessages;
 use App\Http\Livewire\Admin\Settings\UpdateSetting;
 use App\Http\Livewire\Bagian\ListBagian;
+use App\Http\Livewire\Barang\ListBarang;
 use App\Http\Livewire\Magang\ListMagang;
 use App\Http\Livewire\Tamu\CreateTamu;
 use App\Http\Livewire\Tamu\ListTamu;
@@ -29,8 +30,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('daftarTamu', ListTamu::class)->name('daftartamu');
     Route::get('tambahTamu', CreateTamu::class)->name('tambahtamu');
     Route::get('listMagang', ListMagang::class)->name('listmagang');
+    Route::get('listbarang', ListBarang::class)->name('listbarang');
 
 
+
+    
     Route::get('profile', UpdateProfile::class)->name('profile.edit');
     Route::get('settings', UpdateSetting::class)->name('settings');
     Route::get('users', ListUsers::class)->name('users');

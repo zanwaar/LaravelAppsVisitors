@@ -42,8 +42,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="{{ request()->is('tamu') ? 'active' : '' }}">
-                    <a href="{{ route('tamu') }}"><i class="material-icons">inventory_2</i><span>Log Barang/Surat</span></a>
+                <li class="{{ request()->is('listbarang') ? 'active' : '' }}">
+                    <a href="{{ route('listbarang') }}"><i class="material-icons">inventory_2</i><span>Log Barang/Surat</span></a>
                 </li>
                 <li class="{{ request()->is('bagian') ? 'active' : '' }}">
                     <a href="{{ route('bagian') }}"><i class="material-icons">lan</i><span>Bagian</span></a>

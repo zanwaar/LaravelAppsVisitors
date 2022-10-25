@@ -11,6 +11,15 @@
         };
         window.addEventListener("hide-form", function (event) {
             $("#form").modal("hide");
+            $("#Diambil").modal("hide");
+            toastr.success(event.detail.message, "Success!");
+        });
+        window.addEventListener("hide-diambil", function (event) {
+            $("#Diambil").modal("hide");
+            toastr.success(event.detail.message, "Success!");
+        });
+        window.addEventListener("hide-importModal", function (event) {
+            $("#importModal").modal("hide");
             toastr.success(event.detail.message, "Success!");
         });
         $("#sidebarCollapse").on("click", function () {
@@ -25,6 +34,12 @@
 
     window.addEventListener("show-form", function (event) {
         $("#form").modal("show");
+    });
+    window.addEventListener("importModal", function (event) {
+        $("#importModal").modal("show");
+    });
+    window.addEventListener("show-diambil", function (event) {
+        $("#Diambil").modal("show");
     });
     window.addEventListener("webcam", function (event) {
         $("#modal-webcam").modal("show");

@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Bagian</h1>
+                    <h1 class="m-0 text-dark">Daftar Bagian</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -23,21 +23,32 @@
 
             <div class="card">
                 <div class="card-header">
-                    <button wire:click.prevent="addNew" class="btn btn-info shadow-sm"><i class="fa fa-plus-circle mr-1"></i>Tambah Bagian</button>
+                    <div class="btn-group-sm pt-1 btn-group">
+                        <button wire:click.prevent="addNew" class="btn btn-info"><i class="fa fa-plus-circle mr-1"></i>Tambah Bagian</button>
 
+                        <button type="button" class="btn btn-default" data-toggle="modal" wire:click.prevent=" swohimport()">Import Excel</button>
+                        <button wire:click.prevent="export" type="button" class="btn btn-default ">Export Excel</button>
+                    </div>
+                    <div class="float-right">
+                        <div class="btn-group">
+                            <div class=" input-group input-group-sm">
+                                <x-search-input wire:model="searchTerm" />
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive-md table-striped">
                         <thead>
                             <tr>
-
                                 <th scope="col">#</th>
                                 <th scope="col">Nama Tenant</th>
                                 <th scope="col">Penanggung Jawab</th>
                                 <th scope="col">Tlpn</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Lantai Tenant</th>
-                                <th scope="col">Lantai Tenant</th>
+                                <th style="width: 8px;">Options</th>
                             </tr>
                         </thead>
                         <tbody wire:loading.class="text-muted">
@@ -51,13 +62,10 @@
                                 <td>{{ $bg->email}}</td>
                                 <td>{{ $bg->lantaiTenant }}</td>
                                 <td>
-                                    <a href="" wire:click.prevent="edit({{ $bg }})">
-                                        <i class="fa fa-edit mr-2"></i>
-                                    </a>
-
-                                    <a href="" wire:click.prevent="confirmRemoval({{ $bg }})">
-                                        <i class="fa fa-trash text-danger"></i>
-                                    </a>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="#" wire:click.prevent="edit({{ $bg }})" class="btn btn-info btn-sm text-white"><i class="fa fa-edit"></i></a>
+                                        <a href="#" wire:click.prevent=" confirmRemoval({{ $bg }})" class="btn btn-danger text-white"><i class="fas fa-trash"></i></a>
+                                    </div>
                                 </td>
                             </tr>
                             @empty
@@ -177,6 +185,49 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i> Cancel</button>
                     <button type="button" wire:click.prevent="delete" class="btn btn-danger"><i class="fa fa-trash mr-1"></i>Delete</button>
                 </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form autocomplete="off" wire:submit.prevent="import">
+                    <div class="modal-header">
+                        <h5>Import</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="customFile">File Import</label>
+                            <div class="custom-file">
+                                <div x-data="{ isUploading: false, progress: 5 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false; progress = 5" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                    <input wire:model="fileimport" type="file" class="custom-file-input" id="customFile">
+                                    <div x-show.transition="isUploading" class="progress progress-sm mt-2 rounded">
+                                        <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="custom-file-label" for="customFile">
+                                    @if ($fileimport)
+                                    {{ $fileimport->getClientOriginalName() }}
+                                    @else
+                                    Choose File
+                                    @endif
+                                </label>
+                            </div>
+                            <a href="" wire:click.prevent="downloadfileimport" class="text-primary"> Download Format File Import</a>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i> Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i>Import</button>
+                    </div>
+                </form>
             </div>
         </div>
 

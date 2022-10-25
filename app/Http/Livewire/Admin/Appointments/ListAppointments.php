@@ -42,7 +42,7 @@ class ListAppointments extends AdminComponent
 	{
 		$this->resetPage();
 
-		$this->status = $status;
+		$this->status = $status; 
 	}
 
 	public function updatedSelectPageRows($value)

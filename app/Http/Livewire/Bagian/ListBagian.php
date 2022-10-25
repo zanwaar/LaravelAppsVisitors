@@ -3,18 +3,32 @@
 namespace App\Http\Livewire\Bagian;
 
 use App\Events\TamuCheckIn;
+use App\Exports\BagianExport;
 use App\Models\Bagian;
 use App\Http\Livewire\Admin\AdminComponent as Component;
+use App\Imports\BagianImport;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListBagian extends Component
 {
+    use WithFileUploads;
     public $state = [];
     public $showEditModal = false;
+
     public $idBeingRemoved = null;
+
     public $mbagian;
 
-    public function addNew() 
+    public $fileimport;
+
+    public $searchTerm = null;
+
+    protected $queryString = ['searchTerm' => ['except' => '']];
+
+    public function addNew()
     {
         $this->reset();
 
@@ -27,8 +41,8 @@ class ListBagian extends Component
         $validatedData = Validator::make($this->state, [
             'namaTenant' => 'required',
             'penanggungJawab' => 'required',
-            'tlpn' => 'required',
-            'email' => 'required',
+            'tlpn' => 'required|numeric',
+            'email' => 'required|email',
             'lantaiTenant' => 'required',
         ])->validate();
         Bagian::create($validatedData);
@@ -36,7 +50,6 @@ class ListBagian extends Component
     }
     public function edit(Bagian $bagian)
     {
-
         $this->reset();
         $this->showEditModal = true;
         $this->mbagian = $bagian;
@@ -46,7 +59,6 @@ class ListBagian extends Component
 
     public function update()
     {
-
         $validatedData = Validator::make($this->state, [
             'namaTenant' => 'required',
             'penanggungJawab' => 'required',
@@ -74,12 +86,49 @@ class ListBagian extends Component
 
         $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'deleted successfully!']);
     }
+
+    public function swohimport()
+    {
+        $this->reset();
+        $this->dispatchBrowserEvent('importModal');
+    }
+    public function import()
+    {
+
+        Validator::make($this->state, [
+            'photo' => 'xlsx|max:1024'
+        ])->validate();
+        Excel::import(new BagianImport, $this->fileimport);
+        $this->dispatchBrowserEvent('hide-importModal', ['message' => 'successfully!']);
+        $this->reset();
+    }
+    public function export()
+    {
+        return Excel::download(new BagianExport, 'bagians.xlsx');
+    }
+    public function updatedSearchTerm()
+    {
+        $this->resetPage();
+    }
+    public function getBagianProperty()
+    {
+        return Bagian::latest()
+            ->where('namaTenant', 'like', '%' . $this->searchTerm . '%')
+            ->orwhere('penanggungJawab', 'like', '%' . $this->searchTerm . '%')
+            ->orwhere('tlpn', 'like', '%' . $this->searchTerm . '%')
+            ->orwhere('email', 'like', '%' . $this->searchTerm . '%')
+            ->orwhere('lantaiTenant', 'like', '%' . $this->searchTerm . '%')
+            ->paginate(10);
+    }
+    public function downloadfileimport()
+    {
+        return Storage::download('formatImport.xlsx');
+    }
     public function render()
     {
-        $bagian = Bagian::latest()
-            ->paginate(2);
+        $data = $this->bagian;
         return view('livewire.bagian.list-bagian', [
-            'bagian' => $bagian,
+            'bagian' => $data,
         ]);
     }
 }

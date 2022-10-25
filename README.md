@@ -14,9 +14,11 @@
 -   `composer install`
 -   `php artisan key:generate`
 -   `php artisan storage:link`
+-   vendor spatie model set uuid"
 -   Migrate and seed the database with `php artisan migrate:fresh --seed`
 -   uuid role dan permision di vendor sparti
 -   You can now log in with user "admin@gmail.com", password "password"
+
 
 ## License
 
