@@ -2,31 +2,23 @@
 
 namespace App\Http\Livewire\Bagian;
 
-use App\Events\TamuCheckIn;
 use App\Exports\BagianExport;
 use App\Models\Bagian;
-use App\Http\Livewire\Admin\AdminComponent as Component;
+use App\Http\Livewire\AppComponent;
 use App\Imports\BagianImport;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ListBagian extends Component
+class ListBagian extends AppComponent
 {
     use WithFileUploads;
     public $state = [];
     public $showEditModal = false;
-
     public $idBeingRemoved = null;
-
     public $mbagian;
-
     public $fileimport;
-
-    public $searchTerm = null;
-
-    protected $queryString = ['searchTerm' => ['except' => '']];
 
     public function addNew()
     {
@@ -94,9 +86,8 @@ class ListBagian extends Component
     }
     public function import()
     {
-
         Validator::make($this->state, [
-            'photo' => 'xlsx|max:1024'
+            'photo' => 'xlsx'
         ])->validate();
         Excel::import(new BagianImport, $this->fileimport);
         $this->dispatchBrowserEvent('hide-importModal', ['message' => 'successfully!']);
@@ -106,10 +97,7 @@ class ListBagian extends Component
     {
         return Excel::download(new BagianExport, 'bagians.xlsx');
     }
-    public function updatedSearchTerm()
-    {
-        $this->resetPage();
-    }
+
     public function getBagianProperty()
     {
         return Bagian::latest()

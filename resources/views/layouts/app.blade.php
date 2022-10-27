@@ -48,8 +48,8 @@
                 <li class="{{ request()->is('bagian') ? 'active' : '' }}">
                     <a href="{{ route('bagian') }}"><i class="material-icons">lan</i><span>Bagian</span></a>
                 </li>
-                <li class="{{ request()->is('tamu') ? 'active' : '' }}">
-                    <a href=""><i class="material-icons">event_repeat</i><span>Working permit</span></a>
+                <li class="{{ request()->is('listworking') ? 'active' : '' }}">
+                    <a href="{{ route('listworking') }}"><i class="material-icons">event_repeat</i><span>Working permit</span></a>
                 </li>
                 <li class="dropdown {{ request()->is('profile') | request()->is('users') | request()->is('activity') ? 'active' : '' }}">
                     <a href="#pageprofile" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">

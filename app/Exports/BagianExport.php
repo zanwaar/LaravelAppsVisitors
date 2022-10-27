@@ -27,8 +27,8 @@ class BagianExport implements FromView, ShouldAutoSize, WithEvents
     {
         return [
             AfterSheet::class    => function (AfterSheet $event) {
-                $cellRange = 'A1:W1'; // All headers
-                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
+                $cellRange = 'A1:F1'; // All headers
+                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(12);
             },
         ];
     }

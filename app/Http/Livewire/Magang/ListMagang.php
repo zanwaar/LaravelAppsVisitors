@@ -20,6 +20,13 @@ class ListMagang extends AdminComponent
 
     public $searchTerm = null;
 
+    protected $queryString = ['searchTerm' => ['except' => '']];
+    public function updatedSearchTerm()
+    {
+        $this->resetPage();
+    }
+
+
     public function addNew()
     {
         $this->reset();

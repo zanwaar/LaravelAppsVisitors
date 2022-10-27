@@ -17,6 +17,9 @@ use App\Http\Livewire\Magang\ListMagang;
 use App\Http\Livewire\Tamu\CreateTamu;
 use App\Http\Livewire\Tamu\ListTamu;
 use App\Http\Livewire\Tamu\LogTamu;
+use App\Http\Livewire\Workingpermit\CreateWorkingPermit;
+use App\Http\Livewire\Workingpermit\DetailWorkingPermit;
+use App\Http\Livewire\Workingpermit\ListWorkingPermit;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 Route::get('/', [AuthenticatedSessionController::class, 'create'])
@@ -32,9 +35,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('listMagang', ListMagang::class)->name('listmagang');
     Route::get('listbarang', ListBarang::class)->name('listbarang');
 
+    Route::get('listworking', ListWorkingPermit::class)->name('listworking');
+    Route::get('createworking', CreateWorkingPermit::class)->name('createworking');
+    Route::get('detailworking/{workingpermit}/detail', DetailWorkingPermit::class)->name('detailworking.detail');
 
 
-    
+
+
     Route::get('profile', UpdateProfile::class)->name('profile.edit');
     Route::get('settings', UpdateSetting::class)->name('settings');
     Route::get('users', ListUsers::class)->name('users');

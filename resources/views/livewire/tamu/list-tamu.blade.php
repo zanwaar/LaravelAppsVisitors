@@ -32,19 +32,15 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Daftar Tamu</h3>
-
                     <div class="card-tools">
                         <div class=" input-group input-group-sm">
                             <x-search-input wire:model="searchTerm" />
                         </div>
                     </div>
-                    <!-- /.card-tools -->
                 </div>
-                <!-- /.card-header -->
                 <div class="card-body p-0">
                     <div class="table-responsive mailbox-messages">
                         <table class="table table-hover table-striped">
-
                             <tbody wire:loading.class="text-muted">
                                 <tr>
                                     <th>#</th>
@@ -57,7 +53,6 @@
                                 </tr>
                                 @forelse ($tamu as $index => $ts)
                                 <tr>
-
                                     <td>{{ $tamu->firstItem() + $index }}</td>
                                     <td>{{ $ts->nama }}</td>
                                     <td>{{ $ts->instansi }}</td>
@@ -73,7 +68,6 @@
                                         <p class="mt-2">No results found</p>
                                     </td>
                                 </tr>
-
                                 @endforelse
                             </tbody>
                         </table>
@@ -83,25 +77,17 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer p-0">
-                    <div class="mailbox-controls">
-                        <!-- Check all button -->
+                    <div class="float-right">
+                        {!! $tamu->links() !!}
                         <!-- /.btn-group -->
-
-                        <div class="float-right">
-                            {!! $tamu->links() !!}
-                            <!-- /.btn-group -->
-                        </div>
-                        <!-- /.float-right -->
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- /.col -->.
-
+    </section>
 </div>
 <!-- /.row -->
-</section>
 <!-- /.conte
 </div>
  

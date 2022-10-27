@@ -2,13 +2,12 @@
 
 namespace App\Http\Livewire\Barang;
 
-use App\Http\Livewire\Admin\AdminComponent;
+use App\Http\Livewire\AppComponent;
 use App\Models\Bagian;
 use App\Models\Barang;
 use Illuminate\Support\Facades\Validator;
-use Livewire\Component;
 
-class ListBarang extends AdminComponent
+class ListBarang extends AppComponent
 {
     public $state = [];
     public $lokasi;
@@ -18,18 +17,11 @@ class ListBarang extends AdminComponent
     public $idBeingRemoved = null;
     public $show = false;
     public $showdetail = false;
-    public $selectedRows = [];
-
-    public $selectPageRows = false;
-
-    public $searchTerm = null;
 
     public function addNew()
     {
         $this->reset();
-
         $this->showEditModal = false;
-
         $this->dispatchBrowserEvent('show-form');
     }
 
@@ -72,7 +64,7 @@ class ListBarang extends AdminComponent
     }
     public function Diambil(Barang $barang)
     {
-      
+
         $this->show = true;
         $this->showdetail = false;
 
@@ -85,7 +77,7 @@ class ListBarang extends AdminComponent
     }
     public function detail(Barang $barang)
     {
-        
+
         $this->show = true;
         $this->showdetail = true;
 

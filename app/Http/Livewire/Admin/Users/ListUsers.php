@@ -6,6 +6,7 @@ use App\Http\Livewire\Admin\AdminComponent;
 use App\Models\Conversation;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -70,7 +71,7 @@ class ListUsers extends AdminComponent
 	}
 
 	public function addNew()
-	{ 
+	{
 		$this->reset();
 
 		$this->showEditModal = false;
@@ -232,11 +233,13 @@ class ListUsers extends AdminComponent
 
 	public function render()
 	{
+		$id = Auth::user()->getAuthIdentifier();
 		$users = User::latest()->with(['roles'])
-			->where('name', 'like', '%' . $this->searchTerm . '%')
+			->where('id', '!=', $id)
+			->orwhere('name', 'like', '%' . $this->searchTerm . '%')
 			->orWhere('email', 'like', '%' . $this->searchTerm . '%')
 			->orderBy($this->sortColumnName, $this->sortDirection)
-			->paginate(1);
+			->paginate(10);
 		// $role = $users->roles;
 
 		return view('livewire.admin.users.list-users', [

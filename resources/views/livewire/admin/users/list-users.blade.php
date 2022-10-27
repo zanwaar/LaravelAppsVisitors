@@ -60,7 +60,7 @@
                                     @forelse ($users as $index => $user)
                                     @if (auth()->user()->name !== $user->name)
                                     <tr>
-                                        <th scope="row">{{ $users->firstItem() + $index }}</th>
+                                        <th scope="row">{{ $users->firstItem() }}</th>
                                         <td>
                                             @if ($user->avatar)
                                             <img src="{{ $user->avatar_url }}" style="width: 50px;" class="img img-circle mr-1" alt="">

@@ -7,11 +7,18 @@ use App\Models\Logtamu as ModelsLogtamu;
 use Livewire\Component;
 
 class LogTamu extends AdminComponent
-{ 
+{
     public $selectedRows = [];
     public $selectPageRows = false;
-    public $searchTerm = null;
     public $option = 'TODAY';
+    public $searchTerm = null;
+
+    protected $queryString = ['searchTerm' => ['except' => '']];
+    public function updatedSearchTerm()
+    {
+        $this->resetPage();
+    }
+
     public function camcel()
     {
         $this->logtamu;

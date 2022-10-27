@@ -15,6 +15,7 @@ class BagianImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
+        // dd($row);
         return new bagian([
             'namaTenant' => $row['nama_ruangan'],
             'penanggungJawab' => $row['nama_penanggung_jawab'],

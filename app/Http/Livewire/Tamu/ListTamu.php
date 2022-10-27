@@ -10,6 +10,13 @@ use Livewire\Component;
 class ListTamu extends Component
 {
     public $searchTerm = null;
+
+    protected $queryString = ['searchTerm' => ['except' => '']];
+    public function updatedSearchTerm()
+    {
+        $this->resetPage();
+    }
+
     public function getTamuProperty()
     {
         return Tamu::latest()
