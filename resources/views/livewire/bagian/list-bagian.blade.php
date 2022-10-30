@@ -203,7 +203,7 @@
                             <label for="customFile">File Import</label>
                             <div class="custom-file">
                                 <div x-data="{ isUploading: false, progress: 5 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false; progress = 5" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                    <input wire:model="fileimport" type="file" class="custom-file-input" id="customFile">
+                                    <input wire:model="fileimport" type="file" class="custom-file-input is-invalid"  id="customFile">
                                     <div x-show.transition="isUploading" class="progress progress-sm mt-2 rounded">
                                         <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`">
                                             <span class="sr-only">40% Complete (success)</span>
@@ -217,6 +217,11 @@
                                     Choose File
                                     @endif
                                 </label>
+                                @error('fileimport')
+                                <div class="text-danger p">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <a href="" wire:click.prevent="downloadfileimport" class="text-primary"> Download Format File Import</a>
 

@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Settings;
+namespace App\Http\Livewire\Settings;
 
 use App\Models\Setting;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
-use Spatie\Activitylog\Models\Activity;
 
 class UpdateSetting extends Component
 {
@@ -38,6 +36,6 @@ class UpdateSetting extends Component
 
     public function render()
     {
-        return view('livewire.admin.settings.update-setting');
+        return view('livewire.settings.update-setting');
     }
 }

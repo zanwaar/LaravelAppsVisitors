@@ -2,30 +2,18 @@
 
 namespace App\Http\Livewire\Magang;
 
-use App\Http\Livewire\Admin\AdminComponent; 
+use App\Http\Livewire\AppComponent;
 use App\Models\Bagian;
 use App\Models\Magang;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
-class ListMagang extends AdminComponent
+class ListMagang extends AppComponent
 {
     public $state = [];
     public $mMagang;
     public $showEditModal = false;
     public $idBeingRemoved = null;
-    public $selectedRows = [];
-
-    public $selectPageRows = false;
-
-    public $searchTerm = null;
-
-    protected $queryString = ['searchTerm' => ['except' => '']];
-    public function updatedSearchTerm()
-    {
-        $this->resetPage();
-    }
-
 
     public function addNew()
     {
@@ -35,65 +23,67 @@ class ListMagang extends AdminComponent
 
         $this->dispatchBrowserEvent('show-form');
     }
+
     public function create()
     {
-        $validatedData = Validator::make($this->state, [
-            'nama' => 'required',
-            'bagian_id' => 'required',
-            'sekolah' => 'required',
-            'tglmulai' => 'required',
-            'tglselesai' => 'required',
-            'status' => 'required',
-            'pembimbing' => 'required',
-        ])->validate();
+        $validatedData = Validator::make(
+            $this->state,
+            [
+                'nama' => 'required',
+                'bagian_id' => 'required',
+                'sekolah' => 'required',
+                'tglmulai' => 'required',
+                'tglselesai' => 'required',
+                'status' => 'required',
+                'pembimbing' => 'required',
+            ],
+            [
+                'bagian_id.required' => 'Lokasi Mangang field is required',
+                'tglmuali.required' => 'Tanggal Mulai field is required',
+                'tglselesai.required' => 'Tanggal Selesai field is required',
+            ]
+        )->validate();
         Magang::create($validatedData);
-        $this->dispatchBrowserEvent('hide-form', ['message' => 'added successfully!']);
+        $this->dispatchBrowserEvent('hide-form', ['message' => 'created successfully!']);
     }
+
     public function edit(Magang $magang)
     {
         $this->reset();
-
         $this->showEditModal = true;
-
         $this->mMagang = $magang;
-
         $this->state = $magang->toArray();
-
         $this->dispatchBrowserEvent('show-form');
     }
 
     public function update()
     {
-
-        $validatedData = Validator::make($this->state, [
-            'nama' => 'required',
-            'bagian_id' => 'required',
-            'sekolah' => 'required',
-            'tglmulai' => 'required',
-            'tglselesai' => 'required',
-            'status' => 'required',
-            'pembimbing' => 'required',
-        ])->validate();
+        $validatedData = Validator::make(
+            $this->state,
+            [
+                'nama' => 'required',
+                'bagian_id' => 'required',
+                'sekolah' => 'required',
+                'tglmulai' => 'required',
+                'tglselesai' => 'required',
+                'status' => 'required',
+                'pembimbing' => 'required',
+            ],
+            [
+                'bagian_id.required' => 'Lokasi Mangang field is required',
+                'tglmuali.required' => 'Tanggal Mulai field is required',
+                'tglselesai.required' => 'Tanggal Selesai field is required',
+            ]
+        )->validate();
 
         $this->mMagang->update($validatedData);
 
         $this->dispatchBrowserEvent('hide-form', ['message' => 'updated successfully!']);
     }
-    public function updatedSelectPageRows($value)
-    {
-        if ($value) {
-            $this->selectedRows = $this->magang->pluck('id')->map(function ($id) {
-                return (string) $id;
-            });
-        } else {
-            $this->reset(['selectedRows', 'selectPageRows']);
-        }
-    }
 
     public function confirmRemoval($id)
     {
         $this->idBeingRemoved = $id['id'];
-
         $this->dispatchBrowserEvent('show-delete-modal');
     }
 
@@ -101,14 +91,14 @@ class ListMagang extends AdminComponent
     {
         $magang = Magang::findOrFail($this->idBeingRemoved);
 
-        $magang->delete(); 
+        $magang->delete();
 
         $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'deleted successfully!']);
     }
     public function getMagangProperty()
     {
         return Magang::latest()->with(['bagian'])
-        ->whereRelation('bagian', 'namaTenant', 'like', '%' . $this->searchTerm . '%')
+            ->whereRelation('bagian', 'namaTenant', 'like', '%' . $this->searchTerm . '%')
             ->orwhere('nama', 'like', '%' . $this->searchTerm . '%')
             ->orwhere('sekolah', 'like', '%' . $this->searchTerm . '%')
             ->orwhere('status', 'like', '%' . $this->searchTerm . '%')

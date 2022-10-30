@@ -18,15 +18,15 @@
     <section class="content mb-5">
         <div class="container-fluid">
             <div class="btn-group mb-3 shadow-sm">
-                <a href="{{ route('listworking') }}" type="button" class="btn btn-default">
+                <a href="{{ route('listworking') }}" type="button" class="btn bg-white">
                     <i class="fas fa-reply mr-2"></i>List Working Permit
                 </a>
-                <a href="{{ route('createworking') }}" type="button" class="btn btn-default">
+                <a href="{{ route('createworking') }}" type="button" class="btn bg-white">
                     <i class="fa fa-plus-circle mr-2"></i>Working Permit
                 </a>
             </div>
             <div class="card">
-                <div class="card-header bg-info">
+                <div class="card-header">
                     <div class="float-left">
                         <h3>Mitra {{$state['mitra']}}</h3>
 
@@ -145,7 +145,7 @@
                             <form autocomplete="off" wire:submit.prevent="store">
                                 <div class="add-input">
                                     <div class="row">
-                                        <div class="col-md-11">
+                                        <div class="col-md-10">
                                             <div class="form-group">
                                                 <label for="nama">Nama Lengkap</label>
                                                 <input type="text" wire:model.defer="nama.0" class="form-control @error('nama.0') is-invalid @enderror" id="nama" aria-describedby="nameHelp" placeholder="Enter Nama Lengkap">
@@ -158,14 +158,14 @@
                                         </div>
                                         <div class="col-md-1">
                                             <label for="nama"></label>
-                                            <button class="btn text-white btn-info btn-sm mt-2" wire:click.prevent="add({{$i}})">Add</button>
+                                            <button class="btn btn-info btn-sm mt-2" wire:click.prevent="add({{$i}})"><i class="fas fa-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>
                                 @foreach($inputs as $key => $value)
                                 <div class="add-input">
                                     <div class="row">
-                                        <div class="col-md-11">
+                                        <div class="col-md-10">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Enter nama Lengkap" wire:model.defer="nama.{{ $value }}">
                                                 @error('nama.'.$value) <span class="text-danger error">{{ $message }}</span>@enderror

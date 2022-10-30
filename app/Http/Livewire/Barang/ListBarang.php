@@ -27,14 +27,20 @@ class ListBarang extends AppComponent
 
     public function create()
     {
-        Validator::make($this->state, [
-            'nama' => 'required',
-            'jenis' => 'required',
-            'pengirim' => 'required',
-            'penerima' => 'required',
-            'bagian_id' => 'required',
-            'keterangan' => 'required',
-        ])->validate();
+        Validator::make(
+            $this->state,
+            [
+                'nama' => 'required',
+                'jenis' => 'required',
+                'pengirim' => 'required',
+                'penerima' => 'required',
+                'bagian_id' => 'required',
+                'keterangan' => 'required',
+            ],
+            [
+                'bagian_id.required' => 'Ruangan Yang dItuju field is required',
+            ]
+        )->validate();
         Barang::create([
             'jenis' => $this->state['jenis'],
             'nama' => $this->state['nama'],
@@ -90,9 +96,15 @@ class ListBarang extends AppComponent
     }
     public function confirmDiambil()
     {
-        Validator::make($this->state, [
-            'diambil' => 'required',
-        ])->validate();
+        Validator::make(
+            $this->state,
+            [
+                'diambil' => 'required',
+            ],
+            [
+                'diambil.required' => 'Nama Orang Yang Mengambil field is required',
+            ]
+        )->validate();
 
         $this->mbarang->update(
             [
@@ -106,14 +118,20 @@ class ListBarang extends AppComponent
     }
     public function update()
     {
-        $validatedData = Validator::make($this->state, [
-            'nama' => 'required',
-            'jenis' => 'required',
-            'pengirim' => 'required',
-            'penerima' => 'required',
-            'bagian_id' => 'required',
-            'keterangan' => 'required',
-        ])->validate();
+        $validatedData = Validator::make(
+            $this->state,
+            [
+                'nama' => 'required',
+                'jenis' => 'required',
+                'pengirim' => 'required',
+                'penerima' => 'required',
+                'bagian_id' => 'required',
+                'keterangan' => 'required',
+            ],
+            [
+                'bagian_id.required' => 'Ruangan Yang dItuju field is required',
+            ]
+        )->validate();
 
         $this->mbarang->update($validatedData);
 
@@ -132,6 +150,7 @@ class ListBarang extends AppComponent
         $barang->delete();
 
         $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'deleted successfully!']);
+        $this->reset();
     }
     public function filterBarangsByStatus($status = 'active')
     {

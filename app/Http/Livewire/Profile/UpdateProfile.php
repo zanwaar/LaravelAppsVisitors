@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Profile;
+namespace App\Http\Livewire\Profile;
 
 use Livewire\Component;
 use Illuminate\Support\Arr;
@@ -109,6 +109,6 @@ class UpdateProfile extends Component
 
     public function render()
     {
-        return view('livewire.admin.profile.update-profile');
+        return view('livewire.profile.update-profile');
     }
 }

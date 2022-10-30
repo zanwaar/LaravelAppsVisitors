@@ -3,18 +3,12 @@
 namespace App\Http\Livewire\Tamu;
 
 use Livewire\Component;
-use App\Events\TamuCheckIn;
-use App\Http\Livewire\Tamu\LogTamu as TamuLogTamu;
 use App\Models\Bagian;
 use App\Models\Logtamu;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Tamu;
-use DateTime;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use PhpParser\Node\Stmt\Return_;
-
 class CreateTamu extends Component
 {
     public $state = [];
@@ -49,17 +43,26 @@ class CreateTamu extends Component
     public function create()
     {
         $this->twebcam = $this->state['foto'];
-        Validator::make($this->state, [
-            'nama' => 'required',
-            'instansi' => 'required',
-            'jenisid' => 'required',
-            'ni' => 'required|unique:tamus',
-            'alamat' => 'required',
-            'jk' => 'required',
-            'foto' => 'required',
-            'tenant' => 'required',
-            'keperluan' => 'required',
-        ])->validate();
+        Validator::make(
+            $this->state,
+            [
+                'nama' => 'required',
+                'instansi' => 'required',
+                'jenisid' => 'required',
+                'ni' => 'required|unique:tamus',
+                'alamat' => 'required',
+                'jk' => 'required',
+                'foto' => 'required',
+                'tenant' => 'required',
+                'keperluan' => 'required',
+            ],
+            [
+                'jenisid.required' => 'Jenis ID field is required',
+                'ni.required' => 'Nomor Identitas field is required',
+                'jk.required' => 'Jenis Kelamin field is required',
+                'tenant.required' => 'Tujuan Tenant field is required',
+            ]
+        )->validate();
 
         DB::beginTransaction();
         try {
@@ -88,26 +91,30 @@ class CreateTamu extends Component
             throw $th;
         }
 
-        $this->dispatchBrowserEvent('alert', ['message' => 'created successfully!']);
+        $this->dispatchBrowserEvent('alert', ['message' => 'Berhasil Ditambahkan Cek lOG Tamu Hari Ini']);
         $this->reset();
-
-
-
-        // return redirect()->route('daftartamu');
     }
     public function update()
     {
-
-        Validator::make($this->state, [
-            'nama' => 'required',
-            'instansi' => 'required',
-            'jenisid' => 'required',
-            'ni' => 'required',
-            'alamat' => 'required',
-            'jk' => 'required',
-            'tenant' => 'required',
-            'keperluan' => 'required',
-        ])->validate();
+        Validator::make(
+            $this->state,
+            [
+                'nama' => 'required',
+                'instansi' => 'required',
+                'jenisid' => 'required',
+                'ni' => 'required',
+                'alamat' => 'required',
+                'jk' => 'required',
+                'tenant' => 'required',
+                'keperluan' => 'required',
+            ],
+            [
+                'jenisid.required' => 'Jenis ID field is required',
+                'ni.required' => 'Nomor Identitas field is required',
+                'jk.required' => 'Jenis Kelamin field is required',
+                'tenant.required' => 'Tujuan Tenant field is required',
+            ]
+        )->validate();
         $xheck =  Logtamu::where('tamu_id', $this->mtamu->id)->where('checkout', null)->first();
         if ($xheck) {
             return $this->dispatchBrowserEvent('alert-danger', ['message' => 'Maaf Tamu Belum Check OUT!']);
@@ -126,18 +133,16 @@ class CreateTamu extends Component
             DB::rollBack();
             throw $th;
         }
-        $this->dispatchBrowserEvent('alert', ['message' => 'created successfully!']);
+        $this->dispatchBrowserEvent('alert', ['message' => 'Berhasil Ditambahkan Cek lOG Tamu Hari Ini']);
         $this->reset();
         // return redirect()->route('daftartamu');
     }
     public function edit(Tamu $tamu)
     {
-        // dd($tamu);
         $this->reset();
         $this->show = true;
         $this->mtamu = $tamu;
         $this->state = $tamu->toArray();
-        // $this->dispatchBrowserEvent('show-form');
     }
     public function fsearch()
     {
@@ -150,7 +155,6 @@ class CreateTamu extends Component
         $this->show = true;
         $this->mtamu = $s;
         $this->state = $s->toArray();
-        // $this->dispatchBrowserEvent('show-form');
     }
     public function render()
     {

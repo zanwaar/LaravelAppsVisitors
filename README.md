@@ -1,4 +1,4 @@
-# MAplikasi Visitors
+# Aplikasi Visitors
 
 -   fitur Login
 -   User Management
@@ -14,7 +14,8 @@
 -   `composer install`
 -   `php artisan key:generate`
 -   `php artisan storage:link`
--   vendor spatie model set uuid"
+-   vendor spatie model set uuid
+-   set Google NOCAPTCHA_SECRET
 -   Migrate and seed the database with `php artisan migrate:fresh --seed`
 -   uuid role dan permision di vendor sparti
 -   You can now log in with user "admin@gmail.com", password "password"

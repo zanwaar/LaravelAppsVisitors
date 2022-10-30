@@ -11,9 +11,8 @@
                         <li class="breadcrumb-item active">Barang / Surat</li>
                     </ol>
                 </div>
-
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
     </div>
     <section class="content mb-5">
         <div class="container-fluid">
@@ -23,31 +22,20 @@
             <div class="card">
                 <div class="card-header">
                     <div class="btn-group-sm pt-1 btn-group">
-                        <!-- <a type="button" class="pt-1 pr-4">Log Barang / Surat {{now()->toFormattedDate()}}</a> -->
                         <button wire:click="filterBarangsByStatus('')" type="button" class="btn btn-default">ALL</button>
                         <button wire:click="filterBarangsByStatus(0)" type="button" class="btn btn-warning ">Belum Diambil</button>
                         <button wire:click="filterBarangsByStatus(1)" type="button" class="btn btn-primary ">Sudah Diambil</button>
-                        <!-- <button type="button" class="btn btn-default ">Export</button> -->
-
-
                     </div>
                     <div class="float-right">
-
                         <div class="btn-group">
-
                             <div class=" input-group input-group-sm">
                                 <x-search-input wire:model="searchTerm" />
                             </div>
                         </div>
-
                     </div>
-                    <!-- /.card-tools -->
                 </div>
-
                 <div class="card-body p-0">
-
                     <div class="table-responsive mailbox-messages">
-
                         <table class="table table-hover table-striped">
                             <tbody class="">
                                 <tr class="bg-dark ">
@@ -57,7 +45,7 @@
                                     <th>Pengirim</th>
                                     <th>Penerima</th>
                                     <th>Ruang Dituju</th>
-                                    <th>Diambil</th>
+                                    <th>Diambil OLeh</th>
                                     <th>Status</th>
                                     <th style="width: 8px;">Options</th>
                                 </tr>
@@ -97,23 +85,16 @@
                                         <p class="mt-2">Not Found</p>
                                     </td>
                                 </tr>
-
                                 @endforelse
-
                             </tbody>
                         </table>
-                        <!-- /.table -->
                     </div>
-                    <!-- /.mail-box-messages -->
                 </div>
-                <!-- /.card-body -->
                 <div class="card-footer d-flex justify-content-end">
                     {!! $barang->links() !!}
                 </div>
             </div>
         </div>
-
-        <!-- /.col -->.
     </section>
 
 
@@ -156,7 +137,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nama">Nama Surat/ Barang</label>
-                                    <input type="text" wire:model.defer="state.nama" class="form-control @error('nama') is-invalid @enderror" id="nama" aria-describedby="nameHelp" placeholder="Enter Nama Tenant">
+                                    <input type="text" wire:model.defer="state.nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Maukan Nama Surat / Barang">
                                     @error('nama')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -171,7 +152,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="pengirim">Pengirim</label>
-                                    <input type="text" wire:model.defer="state.pengirim" class="form-control @error('pengirim') is-invalid @enderror" id="pengirim" aria-describedby="nameHelp" placeholder="Enter pengirim Tenant">
+                                    <input type="text" wire:model.defer="state.pengirim" class="form-control @error('pengirim') is-invalid @enderror" id="pengirim" placeholder="Masukan Pengirim ">
                                     @error('pengirim')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -182,7 +163,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="penerima">Penerima</label>
-                                    <input type="text" wire:model.defer="state.penerima" class="form-control @error('penerima') is-invalid @enderror" id="penerima" aria-describedby="nameHelp" placeholder="Enter penerima Tenant">
+                                    <input type="text" wire:model.defer="state.penerima" class="form-control @error('penerima') is-invalid @enderror" id="penerima" placeholder="Masukan penerima ">
                                     @error('penerima')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -191,14 +172,12 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="form-group">
-                            <label for="bagian_id">Tenant</label>
+                            <label for="bagian_id">Ruang dituju</label>
                             <select wire:model.defer="state.bagian_id" class="form-control @error('bagian_id') is-invalid @enderror">
                                 <option value="">Select</option>
                                 @foreach($bagian as $bg)
-                                <option value="{{ $bg->id }}">{{ $bg->namaTenant }}</option>
+                                <option value="{{ $bg->id }}">{{ $bg->namaTenant  }}</option>
                                 @endforeach
                             </select>
                             @error('bagian_id')
@@ -209,7 +188,7 @@
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan</label>
-                            <input type="text" wire:model.defer="state.keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" aria-describedby="nameHelp" placeholder="Enter keterangan Tenant">
+                            <input type="text" wire:model.defer="state.keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan ">
                             @error('keterangan')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -236,17 +215,15 @@
     @if ($show)
     <div class="modal fade" id="Diambil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-lg" role="document">
-
             <form autocomplete="off" wire:submit.prevent="confirmDiambil">
                 <div class="modal-content ">
                     <div class="modal-header bg-info">
                         <h5 class="modal-title" id="exampleModalLabel">
                             @if ($showdetail)
-                            <span>Detail Barang / Surat Telah Diambil</span>
+                            <span>Detail Barang / Surat </span>
                             @else
-                            <span>Konfirmasi Barang / Surat Telah Diambil</span>
+                            <span>Konfirmasi Barang / Surat </span>
                             @endif
-
                         </h5>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -256,7 +233,7 @@
                         @if (!$showdetail)
                         <div class="form-group">
                             <label for="diambil">Nama Orang yang Mengambil</label>
-                            <input type="text" wire:model.defer="state.diambil" class="form-control @error('diambil') is-invalid @enderror" id="diambil" aria-describedby="nameHelp" placeholder="Masukan Nama">
+                            <input type="text" wire:model.defer="state.diambil" class="form-control @error('diambil') is-invalid @enderror" id="diambil" placeholder="Masukan Nama Orang yang Mengambil">
                             @error('diambil')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -314,7 +291,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <h4>Are you sure you want to delete?</h4>
+                    <h4>Konfirmasi Delete</h4>
                 </div>
 
                 <div class="modal-footer">

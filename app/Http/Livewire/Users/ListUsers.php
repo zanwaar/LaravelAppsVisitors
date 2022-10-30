@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Users;
+namespace App\Http\Livewire\Users;
 
-use App\Http\Livewire\Admin\AdminComponent;
+
+use App\Http\Livewire\AppComponent;
 use App\Models\Conversation;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -13,10 +14,9 @@ use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 use Spatie\Activitylog\Models\Activity;
-use Spatie\Permission\Models\Role;
 use Request as Requestip;
 
-class ListUsers extends AdminComponent
+class ListUsers extends AppComponent
 {
 	use WithFileUploads;
 	use AuthorizesRequests;
@@ -51,7 +51,7 @@ class ListUsers extends AdminComponent
 
 		DB::table('model_has_roles')->where('model_id', $user->id)->delete();
 		$user->assignRole($role);
-		$this->dispatchBrowserEvent('updated', ['message' => "Role changed to {$role} successfully."]);
+		$this->dispatchBrowserEvent('alert', ['message' => "Role changed to {$role} successfully."]);
 
 		activity()
 			->performedOn(auth()->user())
@@ -95,7 +95,6 @@ class ListUsers extends AdminComponent
 
 		$user = User::create($validatedData);
 		$user->assignRole('operator');
-		// session()->flash('message', 'User added successfully!');
 
 		$this->dispatchBrowserEvent('hide-form', ['message' => 'User added successfully!']);
 
@@ -235,14 +234,13 @@ class ListUsers extends AdminComponent
 	{
 		$id = Auth::user()->getAuthIdentifier();
 		$users = User::latest()->with(['roles'])
-			->where('id', '!=', $id)
 			->orwhere('name', 'like', '%' . $this->searchTerm . '%')
 			->orWhere('email', 'like', '%' . $this->searchTerm . '%')
 			->orderBy($this->sortColumnName, $this->sortDirection)
-			->paginate(10);
+			->paginate(15);
 		// $role = $users->roles;
 
-		return view('livewire.admin.users.list-users', [
+		return view('livewire.users.list-users', [
 			'users' => $users,
 		]);
 	}

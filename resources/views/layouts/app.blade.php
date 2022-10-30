@@ -51,16 +51,17 @@
                 <li class="{{ request()->is('listworking') ? 'active' : '' }}">
                     <a href="{{ route('listworking') }}"><i class="material-icons">event_repeat</i><span>Working permit</span></a>
                 </li>
-                <li class="dropdown {{ request()->is('profile') | request()->is('users') | request()->is('activity') ? 'active' : '' }}">
+                <li class="{{ request()->is('profile') ? 'active' : '' }}">
+                    <a href="{{ route('profile.edit') }}"><i class="material-icons">manage_accounts</i><span>Profile</span></a>
+                </li>
+                <li class="dropdown | request()->is('users') | request()->is('activity') ? 'active' : '' }}">
                     <a href="#pageprofile" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">manage_accounts</i><span>User</span></a>
-                    <ul class="collapse list-unstyled menu {{ request()->is('profile') | request()->is('users') | request()->is('activity')  ? 'show' : '' }}" id="pageprofile">
-                        <li class="{{ request()->is('profile') ? 'active mt-2 rounded' : '' }}">
-                            <a href="{{ route('profile.edit') }}"><i class="material-icons">trip_origin</i><span>Profile</span></a>
-                        </li>
+                        <i class="material-icons">manage_accounts</i><span>Management Users</span></a>
+                    <ul class="collapse list-unstyled menu {{  request()->is('users') | request()->is('activity')  ? 'show' : '' }}" id="pageprofile">
+
 
                         <li class="{{ request()->is('users') ? 'active mt-2 rounded' : '' }}">
-                            <a href="{{ route('users') }}"><i class="material-icons">trip_origin</i><span>Management Users</span></a>
+                            <a href="{{ route('users') }}"><i class="material-icons">trip_origin</i><span>List Users</span></a>
                         </li>
 
                         <li class="{{ request()->is('activity') ? 'active mt-2 rounded' : '' }}">

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,8 +28,20 @@ class Workingpermit extends Model
      */
     public $incrementing = false;
     protected $guarded = [];
+    protected $casts = [
+        'tglawal' => 'datetime',
+        'tglakhir' => 'datetime',
+    ];
     public function personil()
     {
         return $this->hasMany(Personil::class);
+    }
+    public function getTglawalAttribute($value)
+    {
+        return Carbon::parse($value)->toFormattedDate();
+    }
+    public function getTglakhirAttribute($akhir)
+    {
+        return Carbon::parse($akhir)->toFormattedDate();
     }
 }

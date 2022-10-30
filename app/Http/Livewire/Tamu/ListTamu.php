@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire\Tamu;
 
-use App\Events\TamuCheckIn;
-use Illuminate\Support\Facades\Validator;
 use App\Models\Tamu;
 use Livewire\Component;
 

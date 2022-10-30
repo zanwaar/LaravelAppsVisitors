@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire\Tamu;
 
-use App\Http\Livewire\Admin\AdminComponent;
-use App\Models\Logtamu as ModelsLogtamu;
-use Livewire\Component;
 
-class LogTamu extends AdminComponent
+use App\Http\Livewire\AppComponent;
+use App\Models\Logtamu as ModelsLogtamu;
+
+class LogTamu extends AppComponent
 {
     public $selectedRows = [];
     public $selectPageRows = false;
@@ -69,13 +69,13 @@ class LogTamu extends AdminComponent
     {
         $a = ModelsLogtamu::whereIn('id', $this->selectedRows);
         $a->update(['checkout' => now()]);
-        $this->dispatchBrowserEvent('alert', ['message' => 'created successfully!']);
+        $this->dispatchBrowserEvent('alert', ['message' => 'Berhasil Melakukan CheckOut']);
         $this->reset(['selectPageRows', 'selectedRows']);
     }
     public function markAllAsCheckin()
     {
         ModelsLogtamu::whereIn('id', $this->selectedRows)->update(['checkout' => null]);
-        $this->dispatchBrowserEvent('alert', ['message' => 'created successfully!']);
+        $this->dispatchBrowserEvent('alert', ['message' => 'Berhasil Membataktan CheckOut']);
         $this->reset(['selectPageRows', 'selectedRows']);
     }
 

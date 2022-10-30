@@ -86,10 +86,11 @@ class ListBagian extends AppComponent
     }
     public function import()
     {
-        Validator::make($this->state, [
-            'photo' => 'xlsx'
-        ])->validate();
-        Excel::import(new BagianImport, $this->fileimport);
+        $this->validate([
+            'fileimport' => 'required|mimes:xls,xlsx', 
+        ]);
+        $import = new BagianImport();
+        $import->import($this->fileimport);
         $this->dispatchBrowserEvent('hide-importModal', ['message' => 'successfully!']);
         $this->reset();
     }

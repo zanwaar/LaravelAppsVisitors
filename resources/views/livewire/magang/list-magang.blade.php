@@ -13,9 +13,8 @@
                 </div>
 
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
     </div>
-
     <section class="content mb-5">
         <div class="container-fluid">
             <div class="btn-group mb-3 shadow-sm">
@@ -26,24 +25,16 @@
                     <div class="float-left">
                         <h3 class="card-title">Log Daftar Pkl / Mangang</h3>
                     </div>
-
                     <div class="float-right">
-
                         <div class="btn-group">
-
                             <div class=" input-group input-group-sm">
                                 <x-search-input wire:model="searchTerm" />
                             </div>
                         </div>
-
                     </div>
-                    <!-- /.card-tools -->
                 </div>
-
                 <div class="card-body p-0">
-
                     <div class="table-responsive mailbox-messages">
-
                         <table class="table table-hover table-striped">
                             <tbody>
                                 <tr>
@@ -72,40 +63,29 @@
                                     <td> <span class="badge badge-primary  px-1">exparied</span></td>
                                     @endif
                                     <td>
-                                        <a href="" wire:click.prevent="edit({{ $ts }})">
-                                            <i class="fa fa-edit mr-2"></i>
-                                        </a>
-
-                                        <a href="" wire:click.prevent="confirmRemoval({{ $ts }})">
-                                            <i class="fa fa-trash text-danger"></i>
-                                        </a>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="#" wire:click.prevent="edit({{ $ts }})" class="btn btn-info btn-sm text-white"><i class="fa fa-edit"></i></a>
+                                            <a href="#" wire:click.prevent=" confirmRemoval({{ $ts }})" class="btn btn-danger text-white"><i class="fas fa-trash"></i></a>
+                                        </div>
                                     </td>
-
                                 </tr>
                                 @empty
                                 <tr class="text-center">
                                     <td colspan="10">
                                         <img src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/v2/assets/empty.svg" alt="No results found">
-                                        <p class="mt-2">NOT FOUND</p>
+                                        <p class="mt-2">Not found</p>
                                     </td>
                                 </tr>
-
                                 @endforelse
-
                             </tbody>
                         </table>
-                        <!-- /.table -->
                     </div>
-                    <!-- /.mail-box-messages -->
                 </div>
-                <!-- /.card-body -->
                 <div class="card-footer d-flex justify-content-end">
                     {!! $magang->links() !!}
                 </div>
             </div>
         </div>
-
-        <!-- /.col -->.
     </section>
 
     <!-- Modal -->
@@ -167,7 +147,6 @@
                                             <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                         </div>
                                         <x-datepicker wire:model.defer="state.tglmulai" id="tglmulai" :error="'tglmulai'" />
-
                                     </div>
                                     @error('tglmulai')
                                     <div class="text-danger mt-1 mb-3" style="font-size: 12px;">
@@ -194,12 +173,11 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="form-group">
                                     <label for="pembimbing">Pembimbing</label>
-                                    <input type="text" wire:model.defer="state.pembimbing" class="form-control @error('pembimbing') is-invalid @enderror" id="pembimbing" placeholder="Enter pembimbing">
+                                    <input type="text" wire:model.defer="state.pembimbing" class="form-control @error('pembimbing') is-invalid @enderror" id="pembimbing" placeholder="Masukan pembimbing">
                                     @error('pembimbing')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -208,7 +186,6 @@
                                 </div>
                             </div>
                             <div class="col-md-5">
-
                                 <div class="form-group ">
                                     <label for="pembimbing">Status</label>
                                     <br>
@@ -228,8 +205,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i> Cancel</button>
@@ -256,7 +231,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <h4>Are you sure you want to delete?</h4>
+                    <h4>Konfirmasi Delete</h4>
                 </div>
 
                 <div class="modal-footer">
@@ -267,7 +242,9 @@
         </div>
     </div>
 </div>
-
+@push('styles')
+<link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+@endpush
 @push('js')
 <script type="text/javascript" src="https://unpkg.com/moment"></script>
 <script type="text/javascript" src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
