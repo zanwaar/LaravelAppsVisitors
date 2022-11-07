@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Workingpermit extends Model
@@ -32,6 +33,13 @@ class Workingpermit extends Model
         'tglawal' => 'datetime',
         'tglakhir' => 'datetime',
     ];
+    protected static $logName = 'WorkingPemit';
+    protected static $logFillable = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return  Auth::user()->name . "{$eventName} Working Permit";
+    }
     public function personil()
     {
         return $this->hasMany(Personil::class);

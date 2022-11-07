@@ -1,5 +1,5 @@
 @push('js')
-<script src="/js/webcam.min.js"></script>
+<script src="{{asset('js/webcam.min.js')}}"></script>
 <script language="JavaScript">
     function take_snapshot() {
         Webcam.snap(function(data_uri) {

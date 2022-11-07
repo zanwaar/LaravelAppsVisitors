@@ -9,8 +9,8 @@
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <title>{{ setting('site_title') }} | {{ setting('site_name') }}</title>
     @stack('jsheader')
-    <link rel="stylesheet" href="/css/custom.css">
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     @stack('styles')
     <livewire:styles />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,11 +23,15 @@
     <div class="wrapper">
         <div class="body-overlay"></div>
         <nav id="sidebar" class="shadow-sm">
-            <div class="sidebar-header">
-                <h3 class="text-info"><img src="https://ui-avatars.com/api/?rounded=true&background=5F9DF7&color=fff&name={{setting('site_title') }}" class="img-fluid" /><span>{{setting('site_title') }}</span></h3>
+            <div class="sidebar-header bg-secondary">
+                <h3 class="">
+                    <img src="{{ setting('logo_url') ?? '' }}" class="img-circle elevation-1" alt="User Image" style="height: 40px; width: 40px;">
+                    <span class="text-white">{{setting('site_title') }}</span>
+                </h3>
             </div>
+
             <ul class="list-unstyled components custom">
-                <li class="{{ request()->is('dashboard') ? 'active' : '' }}">
+                <li class="{{ request()->is('dashboard') | request()->is('/')  ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
                 </li>
                 <li class="dropdown {{ request()->is('bukuTamu') ? 'active' : '' }}">
@@ -54,6 +58,7 @@
                 <li class="{{ request()->is('profile') ? 'active' : '' }}">
                     <a href="{{ route('profile.edit') }}"><i class="material-icons">manage_accounts</i><span>Profile</span></a>
                 </li>
+                @role('admin')
                 <li class="dropdown | request()->is('users') | request()->is('activity') ? 'active' : '' }}">
                     <a href="#pageprofile" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">manage_accounts</i><span>Management Users</span></a>
@@ -72,6 +77,8 @@
                 <li class="{{ request()->is('settings') ? 'active' : '' }}">
                     <a href="{{ route('settings') }}"><i class="material-icons">settings</i><span>Settings</span></a>
                 </li>
+                @endrole
+
             </ul>
         </nav>
         <div id="content">
@@ -83,7 +90,7 @@
                             <span class="material-icons">menu</span>
                         </button>
                         <a class="navbar-brand  a-nav" href="#">{{ setting('site_name') }}</a>
-                        <button class="d-inline-block d-lg-none ml-auto btn btn-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="d-inline-block d-lg-none ml-auto btn btn-white more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
                         </button>
                         <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none" id="navbarSupportedContent">
@@ -96,7 +103,9 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('profile.edit') }}" x-ref="profileLink">Profile</a>
                                         <a class="dropdown-item" href="{{ route('profile.edit') }}" x-ref="changePasswordLink">Change Password</a>
+                                        @role('admin')
                                         <a class="dropdown-item" href="{{ route('settings') }}">Settings</a>
+                                        @endrole
                                         <div class="dropdown-divider"></div>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
@@ -114,8 +123,8 @@
             </div>
         </div>
     </div>
-    <script src="/js/app.js"></script>
-    <script src="/js/backend.js"></script>
+    <script src="{{asset('js/app.js')}}"></script>
+    <script src="{{asset('js/backend.js')}}"></script>
 
     @stack('js')
     @stack('before-livewire-scripts')

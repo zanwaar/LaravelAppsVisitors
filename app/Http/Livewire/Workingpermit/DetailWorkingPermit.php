@@ -6,11 +6,13 @@ use App\Models\Personil;
 use App\Models\Workingpermit;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class DetailWorkingPermit extends Component
 {
     use WithPagination;
+    use WithFileUploads;
     protected $paginationTheme = 'simple-bootstrap';
     public $state = [];
     public $workingpermit;
@@ -24,21 +26,25 @@ class DetailWorkingPermit extends Component
 
     public function add($i)
     {
+        $this->authorize('admin');
         $i = $i + 1;
         $this->i = $i;
         array_push($this->inputs, $i);
     }
     public function remove($i)
     {
+        $this->authorize('admin');
         unset($this->inputs[$i]);
     }
     private function resetInputFields()
     {
+        $this->authorize('admin');
         $this->nama = '';
         $this->inputs = [];
     }
     public function store()
     {
+        $this->authorize('admin');
         $this->validate(
             [
                 'nama.0' => 'required',
@@ -55,7 +61,7 @@ class DetailWorkingPermit extends Component
         }
         $this->resetPage();
         $this->resetInputFields();
-        $this->dispatchBrowserEvent('alert', ['message' => 'created successfully!']);
+        $this->dispatchBrowserEvent('alert', ['message' => 'admind successfully!']);
     }
 
     public function mount(Workingpermit $workingpermit)
@@ -73,13 +79,14 @@ class DetailWorkingPermit extends Component
     }
     public function hapusmitra()
     {
-
+        $this->authorize('admin');
         $this->showHapusModal = true;
         $this->dispatchBrowserEvent('show-delete-modal');
     }
 
     public function edit(Personil $data)
     {
+        $this->authorize('admin');
         $this->resetInputFields();
         $this->idBeingRemoved = $data['id'];
         $this->showEditModal = true;
@@ -92,6 +99,7 @@ class DetailWorkingPermit extends Component
     }
     public function updatemitra()
     {
+        $this->authorize('admin');
         Validator::make($this->state, [
             'mitra' => 'required',
             'judulpekerjaan' => 'required',
@@ -114,7 +122,7 @@ class DetailWorkingPermit extends Component
     }
     public function editproses()
     {
-        // dd($this->nama[0]);
+        $this->authorize('admin');
         $this->validate(
             [
                 'nama.0' => 'required',
@@ -131,11 +139,12 @@ class DetailWorkingPermit extends Component
         );
         $this->resetInputFields();
         $this->showEditModal = false;
-        $this->dispatchBrowserEvent('alert', ['message' => 'created successfully!']);
+        $this->dispatchBrowserEvent('alert', ['message' => 'admind successfully!']);
     }
 
     public function delete()
     {
+        $this->authorize('admin');
         $personil = Personil::findOrFail($this->idBeingRemoved);
 
         $personil->delete();
@@ -144,6 +153,7 @@ class DetailWorkingPermit extends Component
     }
     public function deletemitra()
     {
+        $this->authorize('admin');
         $mitra = Workingpermit::findOrFail($this->state['id']);
 
         $mitra->delete();

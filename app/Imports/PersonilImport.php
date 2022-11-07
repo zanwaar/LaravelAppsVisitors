@@ -19,8 +19,7 @@ class PersonilImport implements ToModel, WithHeadingRow
     }
     public function model(array $row)
     {
-
-        return new Personil([
+        return new personil([
             'nama' => $row['nama_personil'],
             'workingpermit_id' => $this->mitra_id
         ]);

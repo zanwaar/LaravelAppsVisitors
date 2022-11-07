@@ -82,7 +82,7 @@
                                 <tr class="text-center">
                                     <td colspan="10">
                                         <img src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/v2/assets/empty.svg" alt="No results found">
-                                        <p class="mt-2">Not Found</p>
+                                        <p class="mt-2">No Results Found</p>
                                     </td>
                                 </tr>
                                 @endforelse

@@ -3,13 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\Bagian;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
 class RolesAndPermissionsSeeder extends Seeder
 {
     /**
@@ -44,29 +44,26 @@ class RolesAndPermissionsSeeder extends Seeder
             $roleAdmin = Role::create(['name' => 'admin']);
 
 
-            Permission::create(['name' => 'read role']);
-            Permission::create(['name' => 'create role']);
-            Permission::create(['name' => 'update role']);
-            Permission::create(['name' => 'delete role']);
+            Setting::create(
+                [
+                    'site_title' => 'Default site Title',
+                    'site_name' => 'Default site name',
+                    'site_logo' => 'noimage.png',
+                    'site_email' => 'default@gmail.com',
+                    'footer_text' => 'default footer text © BatukelDev 2022',
+                ]
+            );
+            Permission::create(['name' => 'read']);
+            Permission::create(['name' => 'create']);
+            Permission::create(['name' => 'update']);
+            Permission::create(['name' => 'delete']);
+            Permission::create(['name' => 'admin']);
 
-            Permission::create(['name' => 'read tamu']);
-            Permission::create(['name' => 'create tamu']);
-            Permission::create(['name' => 'update tamu']);
-            Permission::create(['name' => 'delete tamu']);
-
-            $roleAdmin->givePermissionTo('read role');
-            $roleAdmin->givePermissionTo('create role');
-            $roleAdmin->givePermissionTo('update role');
-            $roleAdmin->givePermissionTo('delete role');
-            $roleAdmin->givePermissionTo('read tamu');
-            $roleAdmin->givePermissionTo('create tamu');
-            $roleAdmin->givePermissionTo('update tamu');
-            $roleAdmin->givePermissionTo('delete tamu');
-
-            $roleOperator->givePermissionTo('read tamu');
-            $roleOperator->givePermissionTo('create tamu');
-            $roleOperator->givePermissionTo('update tamu');
-            $roleOperator->givePermissionTo('delete tamu');
+            $roleAdmin->givePermissionTo('read');
+            $roleAdmin->givePermissionTo('create');
+            $roleAdmin->givePermissionTo('update');
+            $roleAdmin->givePermissionTo('delete');
+            $roleAdmin->givePermissionTo('admin');
 
 
             $operator->assignRole('operator');

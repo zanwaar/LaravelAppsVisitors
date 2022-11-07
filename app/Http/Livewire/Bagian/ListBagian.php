@@ -6,6 +6,7 @@ use App\Exports\BagianExport;
 use App\Models\Bagian;
 use App\Http\Livewire\AppComponent;
 use App\Imports\BagianImport;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
@@ -87,12 +88,21 @@ class ListBagian extends AppComponent
     public function import()
     {
         $this->validate([
-            'fileimport' => 'required|mimes:xls,xlsx', 
+            'fileimport' => 'required|mimes:Xls,xlsx', 
         ]);
-        $import = new BagianImport();
-        $import->import($this->fileimport);
-        $this->dispatchBrowserEvent('hide-importModal', ['message' => 'successfully!']);
-        $this->reset();
+        DB::beginTransaction();
+        try {
+            $import = new BagianImport();
+            $import->import($this->fileimport);
+            $this->dispatchBrowserEvent('hide-importModal', ['message' => 'successfully!']);
+            $this->reset();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            //throw $th;
+            $this->dispatchBrowserEvent('alert-danger', ['message' => 'Gagal Simpan Format Tidak Sesuai ']);
+        }
+      
     }
     public function export()
     {

@@ -15,6 +15,9 @@
 -   `php artisan key:generate`
 -   `php artisan storage:link`
 -   vendor spatie model set uuid
+-   $logger->tap(function (Activity $activity) {
+-   $activity->ip = Requestip::ip();
+-   });
 -   set Google NOCAPTCHA_SECRET
 -   Migrate and seed the database with `php artisan migrate:fresh --seed`
 -   uuid role dan permision di vendor sparti

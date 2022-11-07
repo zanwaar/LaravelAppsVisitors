@@ -39,9 +39,13 @@ class ListUsers extends AppComponent
 
 	public $sortDirection = 'desc';
 
+	public function mount(Workingpermit $workingpermit)
+	{
+		$this->authorize('admin');
+	}
 	public function changeRole(User $user, $role)
 	{
-		$this->authorize('create role');
+
 		Validator::make(['role' => $role], [
 			'role' => [
 				'required',

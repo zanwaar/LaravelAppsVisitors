@@ -21,101 +21,52 @@
                 <a href="{{ route('listworking') }}" type="button" class="btn bg-white">
                     <i class="fas fa-reply mr-2"></i>List Working Permit
                 </a>
+                @role('admin')
                 <a href="{{ route('createworking') }}" type="button" class="btn bg-white">
                     <i class="fa fa-plus-circle mr-2"></i>Working Permit
                 </a>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <div class="float-left">
-                        <h3>Mitra {{$state['mitra']}}</h3>
-
-                    </div>
-                    <div class="float-right">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" wire:click.prevent="editmitra()" class="btn btn-default shadow-sm btn-sm"><i class="fa fa-edit mr-2"></i>Edit</button>
-                            <button type="button" wire:click.prevent="hapusmitra()" class="btn btn-default shadow-sm btn-sm"><i class="fas fa-trash mr-2"></i>Hapus</button>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row card-body">
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-4 col-form-label">Judul Pekerjaan :</label>
-                            <div class="col-sm-8">
-                                <input type="text" readonly class="form-control-plaintext" disabled value="{{$state['judulpekerjaan']}}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-4 col-form-label">Lokasi :</label>
-                            <div class="col-sm-8">
-                                <input type="text" readonly class="form-control-plaintext" disabled value="{{$state['lokasi']}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-4 col-form-label">Tanggal Mulai :</label>
-                            <div class="col-sm-8">
-                                <input type="text" readonly class="form-control-plaintext" disabled value="{{$state['tglawal']}}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-4 col-form-label">Tanggal Berakhir :</label>
-                            <div class="col-sm-8">
-                                <input type="text" readonly class="form-control-plaintext" disabled value="{{$state['tglakhir']}}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endrole
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="card">
                         <div class="card-header">
-                            <div class="float-left">
-                                <h4>Daftar Anggota</h4>
-                            </div>
+                            <h3 class="card-title">
+                                <i class="fas fa-text-width"></i>
+                                Mitra {{$state['mitra']}}
+                            </h3>
+                            @role('admin')
                             <div class="float-right">
-                                {!! $personil->links() !!}
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" wire:click.prevent="editmitra()" class="btn btn-info shadow-sm btn-sm"><i class="fa fa-edit mr-2"></i>Edit</button>
+                                    <button type="button" wire:click.prevent="hapusmitra()" class="btn btn-danger shadow-sm btn-sm"><i class="fas fa-trash mr-2"></i>Hapus</button>
+                                </div>
                             </div>
+                            @endrole
                         </div>
-                        <div class="card-body p-0">
-                            <ul class="list-group">
-                                @forelse ($personil as $index => $ts)
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div> <span class="mr-1">{{ $personil->firstItem() + $index }}
-                                        </span>
-                                        {{ $ts->nama }}
-                                    </div>
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="#" wire:click.prevent="edit({{ $ts }})" class="btn btn-info text-white"><i class="fa fa-edit mr-2"></i></a>
-                                        <button type="button" wire:click.prevent="confirmRemoval({{ $ts }})" class="btn btn-danger text-white"><i class="fas fa-trash"></i></button>
-                                    </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <dl>
+                                <dt>Judul Pekerjaan</dt>
+                                <dd>{{$state['judulpekerjaan']}}</dd>
+                                <dt>Lokasi</dt>
+                                <dd>{{$state['lokasi']}}</dd>
+                                <dt>Durasi</dt>
+                                <dd>Tanggal Mulai <span class="text-bold">{{$state['tglawal']}}</span> Tanggal Berakhir <span class=" text-bold">{{$state['tglakhir']}}</span> </dd>
 
-                                </li>
-                                @empty
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Tidak Anggota
-                                </li>
-                                @endforelse
-                            </ul>
+                            </dl>
                         </div>
-                        <div class="card-footer">
-                            <div class="float-right">
-                            </div>
-                        </div>
+                        <!-- /.card-body -->
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
+                    @role('admin')
                     <div class="card">
                         <div class="card-header">
-                            @if ($showEditModal)
-                            <h4>Edit Anggota</h4>
-                            @else
-                            <h4>Tambah Anggota</h4>
-                            @endif
+                            <h3 class="card-title">
+                                <i class="fas fa-text-width"></i>
+                                {{ $showEditModal ? 'Edit Anggota' : 'Tambah Anggota'}}
+                            </h3>
                         </div>
                         <div class="card-body">
                             @if ($showEditModal)
@@ -157,8 +108,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-1">
-                                            <label for="nama"></label>
-                                            <button class="btn btn-info btn-sm mt-2" wire:click.prevent="add({{$i}})"><i class="fas fa-plus"></i></button>
+                                            <label for="nama" class="text-white">tambah</label>
+                                            <button class="btn btn-info" wire:click.prevent="add({{$i}})"><i class="fas fa-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -179,24 +130,61 @@
                                 @endforeach
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-success"><i class="fa fa-save mr-1"></i>Simpan</button>
+                                        <button type="submit" class="btn btn-success  shadow px-2 btn-sm"><i class="fa fa-save mr-2"></i>Simpan</button>
                                     </div>
                                 </div>
                             </form>
                             @endif
 
                         </div>
+                    </div>
+                    @endrole
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="float-left">
+                                <h4>Daftar Anggota</h4>
+                            </div>
+                            <div class="float-right">
+                                {!! $personil->links() !!}
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group">
+                                @forelse ($personil as $index => $ts)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div> <span class="mr-1">{{ $personil->firstItem() + $index }}
+                                        </span>
+                                        {{ $ts->nama }}
+                                    </div>
+                                    @role('admin')
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="#" wire:click.prevent="edit({{ $ts }})" class="text-info"><i class="fa fa-edit mr-2"></i></a>
+                                        <a wire:click.prevent="confirmRemoval({{ $ts }})" class="text-danger"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                    @endrole
+                                </li>
+                                @empty
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Tidak Anggota
+                                </li>
+                                @endforelse
+                            </ul>
+                        </div>
                         <div class="card-footer">
                             <div class="float-right">
-
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+
+                </div>
             </div>
+
         </div>
     </section>
 
+    @role('admin')
     <!-- Modal -->
     <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog  modal-lg" role="document">
@@ -321,6 +309,8 @@
             </div>
         </div>
     </div>
+    @endrole
+
 </div>
 @push('js')
 <script type="text/javascript" src="https://unpkg.com/moment"></script>

@@ -64,9 +64,6 @@
     window.addEventListener("alert-danger", function (event) {
         toastr.error(event.detail.message, "danger!");
     });
-    window.addEventListener("updated", function (event) {
-        toastr.danger(event.detail.message, "Warning!");
-    });
     $('[x-ref="profileLink"]').on("click", function () {
         localStorage.setItem("_x_currentTab", '"profile"');
     });

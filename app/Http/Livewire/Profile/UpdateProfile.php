@@ -27,16 +27,14 @@ class UpdateProfile extends Component
     public function updatedImage()
     {
         $this->validate([
-            'image' => 'image|max:1024', // 1MB Max
+            'image' => 'image', // 1MB Max
         ]);
 
         $previousPath = auth()->user()->avatar;
         $path = $this->image->store('/', 'avatars');
         auth()->user()->update(['avatar' => $path]);
         Storage::disk('avatars')->delete($previousPath);
-        $this->dispatchBrowserEvent('updated', ['message' => 'Profile changed successfully!']);
-
-
+     
         activity()
             ->performedOn(auth()->user())
             ->causedBy(auth()->user())
@@ -51,6 +49,7 @@ class UpdateProfile extends Component
         $lastLoggedActivity->causer;
         $lastLoggedActivity->description;
         $lastLoggedActivity->ip;
+        $this->dispatchBrowserEvent('alert', ['message' => 'Profile changed successfully!']);
     }
 
     public function updateProfile(UpdatesUserProfileInformation $updater)
@@ -62,7 +61,6 @@ class UpdateProfile extends Component
 
         $this->emit('nameChanged', auth()->user()->name);
 
-        $this->dispatchBrowserEvent('updated', ['message' => 'Profile updated successfully!']);
         activity()
             ->performedOn(auth()->user())
             ->causedBy(auth()->user())
@@ -78,6 +76,8 @@ class UpdateProfile extends Component
         $lastLoggedActivity->causer;
         $lastLoggedActivity->description;
         $lastLoggedActivity->ip;
+
+        $this->dispatchBrowserEvent('alert', ['message' => 'Profile updated successfully!']);
     }
 
     public function changePassword(UpdatesUserPasswords $updater)
@@ -89,7 +89,7 @@ class UpdateProfile extends Component
 
         collect($attributes)->map(fn ($value, $key) => $this->state[$key] = '');
 
-        $this->dispatchBrowserEvent('updated', ['message' => 'Password changed successfully!']);
+       
         activity()
             ->performedOn(auth()->user())
             ->causedBy(auth()->user())
@@ -105,6 +105,7 @@ class UpdateProfile extends Component
         $lastLoggedActivity->causer;
         $lastLoggedActivity->description;
         $lastLoggedActivity->ip;
+        $this->dispatchBrowserEvent('alert', ['message' => 'Password changed successfully!']);
     }
 
     public function render()

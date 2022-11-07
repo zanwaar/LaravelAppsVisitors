@@ -37,6 +37,7 @@
                         <select wire:change="maropsi($event.target.value)" style="height: 2rem; outline: 2px solid transparent;" class="px-1 rounded border-0">
                             <option value="TODAY">Hari ini</option>
                             <option value="MTD">Bulan Ini</option>
+                            <option value="ALL">All</option>
                             <!-- <option value="YTD">Year to Date</option> -->
                         </select>
                         <!-- <button wire:click.prevent="markAllAsCheckout" type="button" class="btn btn-success btn-sm">
@@ -117,7 +118,7 @@
                                 <tr class="text-center">
                                     <td colspan="9">
                                         <img src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/v2/assets/empty.svg" alt="No results found">
-                                        <p class="mt-2">Not Found</p>
+                                        <p class="mt-2">No Results Found</p>
                                     </td>
                                 </tr>
 

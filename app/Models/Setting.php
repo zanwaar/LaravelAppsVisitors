@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
@@ -22,6 +23,7 @@ class Setting extends Model
 
     public $fillable = [
         'site_email',
+        'site_logo',
         'site_name',
         'site_title',
         'footer_text',
@@ -31,6 +33,18 @@ class Setting extends Model
     protected $casts = [
         'sidebar_collapse' => 'boolean',
     ];
+    protected $appends = [
+        'logo_url',
+    ];
+
+    public function getLogoUrlAttribute()
+    {
+        if ($this->site_logo && Storage::disk('images')->exists($this->site_logo)) {
+            return Storage::disk('images')->url($this->site_logo);
+        }
+
+        return asset('noimage.png');
+    }
     // public function getActivitylogOptions(): LogOptions
     // {
     //     return LogOptions::defaults()

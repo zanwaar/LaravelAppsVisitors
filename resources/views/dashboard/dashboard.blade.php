@@ -21,11 +21,9 @@
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
-                <div class="card-body px-0">
-
-
-
-                </div>
+                <livewire:dashboard.dashboad />
+                <livewire:dashboard.cart />
+              
 
             </div>
         </div>

@@ -2,16 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\bagian;
+use App\Models\Bagian;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Validators\Failure;
 use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\SkipsOnError;
-use Maatwebsite\Excel\Concerns\WithValidation;
-use Maatwebsite\Excel\Concerns\SkipsErrors;
-use Illuminate\Validation\Rule;
-use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 
 class BagianImport implements ToModel, WithHeadingRow
 {
@@ -23,7 +17,7 @@ class BagianImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-      
+
         return new bagian([
             'namaTenant' => $row['nama_ruangan'],
             'penanggungJawab' => $row['nama_penanggung_jawab'],

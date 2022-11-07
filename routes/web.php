@@ -16,6 +16,12 @@ use App\Http\Livewire\Workingpermit\CreateWorkingPermit;
 use App\Http\Livewire\Workingpermit\DetailWorkingPermit;
 use App\Http\Livewire\Workingpermit\ListWorkingPermit;
 
+Route::get('/symlink', function () {
+    $target = $_SERVER['DOCUMENT_ROOT'] . '/backend-visitor/storage/app/public';
+    $link = $_SERVER['DOCUMENT_ROOT'] . '/apps-visitor/storage';
+    symlink($target, $link);
+    echo "Done";
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', DashboardController::class);
@@ -26,12 +32,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('listMagang', ListMagang::class)->name('listmagang');
     Route::get('listbarang', ListBarang::class)->name('listbarang');
     Route::get('bagian', ListBagian::class)->name('bagian');
-    Route::get('activity', ActivityLog::class)->name('activity');
+    Route::get('activity', ActivityLog::class)->name('activity')->middleware('role:admin');
     Route::get('listworking', ListWorkingPermit::class)->name('listworking');
-    Route::get('createworking', CreateWorkingPermit::class)->name('createworking');
+    Route::get('createworking', CreateWorkingPermit::class)->name('createworking')->middleware('role:admin');
     Route::get('detailworking/{workingpermit}/detail', DetailWorkingPermit::class)->name('detailworking.detail');
     Route::get('profile', UpdateProfile::class)->name('profile.edit');
-    Route::get('settings', UpdateSetting::class)->name('settings');
+    Route::get('settings', UpdateSetting::class)->name('settings')->middleware('role:admin');
     Route::get('users', ListUsers::class)->name('users');
-
 });

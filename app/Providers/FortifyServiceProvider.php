@@ -70,7 +70,7 @@ class FortifyServiceProvider extends ServiceProvider
                     })
                     ->log($user->name . ' Melakukan Login');
                 $lastLoggedActivity = Activity::all()->last();
-
+   
                 $lastLoggedActivity->log_name; //returns an instance of an eloquent model
                 $lastLoggedActivity->subject; //returns an instance of an eloquent model
                 $lastLoggedActivity->causer; //returns an instance of your user model
