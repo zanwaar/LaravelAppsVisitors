@@ -38,5 +38,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('detailworking/{workingpermit}/detail', DetailWorkingPermit::class)->name('detailworking.detail');
     Route::get('profile', UpdateProfile::class)->name('profile.edit');
     Route::get('settings', UpdateSetting::class)->name('settings')->middleware('role:admin');
-    Route::get('users', ListUsers::class)->name('users');
+    Route::get('users', ListUsers::class)->name('users'); 
 });

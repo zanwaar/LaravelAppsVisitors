@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Tamu;
 
 use App\Http\Livewire\AppComponent;
 use App\Models\Logtamu as ModelsLogtamu;
+use Illuminate\Database\Eloquent\Builder;
 
 class LogTamu extends AppComponent
 {
@@ -12,8 +13,10 @@ class LogTamu extends AppComponent
     public $selectPageRows = false;
     public $option = 'TODAY';
     public $searchTerm = null;
+    public $trow = 5;
 
     protected $queryString = ['searchTerm' => ['except' => '']];
+    
     public function updatedSearchTerm()
     {
         $this->resetPage();
@@ -37,12 +40,14 @@ class LogTamu extends AppComponent
     public function getLogtamuProperty()
     {
         return ModelsLogtamu::latest()->with(['tamu', 'bagian'])
-            ->whereRelation('tamu', 'nama', 'like', '%' . $this->searchTerm . '%')
-            ->orwhereRelation('tamu', 'instansi', 'like', '%' . $this->searchTerm . '%')
-            ->orwhereRelation('bagian', 'namaTenant', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('keperluan', 'like', '%' . $this->searchTerm . '%')
+            ->where(function ($query) {
+                $query->whereRelation('tamu', 'nama', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhereRelation('tamu', 'instansi', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhereRelation('bagian', 'namaTenant', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('keperluan', 'like', '%' . $this->searchTerm . '%');
+            })
             ->whereBetween('checkin', $this->maropsi($this->option))
-            ->paginate(10);
+            ->paginate($this->trow);
     }
 
     public function maropsi($option)
@@ -55,7 +60,6 @@ class LogTamu extends AppComponent
 
         if ($option == 'MTD') {
             $this->option = $option;
-
             return [now()->firstOfMonth(), now()];
         }
 
@@ -63,20 +67,38 @@ class LogTamu extends AppComponent
             $this->option = $option;
             return [now()->firstOfYear(), now()];
         }
+        if ($option == 'ALL') {
+            $this->option = $option;
+            return ['01-01-1000', now()];
+        }
+
         return [now()->subDays($option), now()];
+    }
+    public function row($value)
+    {
+        $this->resetPage();
+        $this->trow = $value;
     }
     public function markAllAsCheckout()
     {
-        $a = ModelsLogtamu::whereIn('id', $this->selectedRows);
+        $a = ModelsLogtamu::whereIn('id', $this->selectedRows)->where(['checkout' => null]);
         $a->update(['checkout' => now()]);
         $this->dispatchBrowserEvent('alert', ['message' => 'Berhasil Melakukan CheckOut']);
         $this->reset(['selectPageRows', 'selectedRows']);
+
+
+        # code...
     }
     public function markAllAsCheckin()
     {
         ModelsLogtamu::whereIn('id', $this->selectedRows)->update(['checkout' => null]);
         $this->dispatchBrowserEvent('alert', ['message' => 'Berhasil Membataktan CheckOut']);
         $this->reset(['selectPageRows', 'selectedRows']);
+    }
+
+    public function btndetail($id)
+    {
+        dd($id);
     }
 
     public function render()

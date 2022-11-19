@@ -72,7 +72,7 @@ class ListBagian extends AppComponent
     }
 
     public function delete()
-    {
+    { 
         $bagian = Bagian::findOrFail($this->idBeingRemoved);
 
         $bagian->delete();

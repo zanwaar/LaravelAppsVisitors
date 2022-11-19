@@ -90,7 +90,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-dialog  modal-xl" role="document">
             <form autocomplete="off" wire:submit.prevent="{{ $showEditModal ? 'update' : 'create' }}">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -106,105 +106,141 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="nama">Nama Lengkap</label>
-                            <input type="text" wire:model.defer="state.nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukan Nama Lengkap">
-                            @error('nama')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="sekolah">Sekolah/Institusi</label>
-                            <input type="text" wire:model.defer="state.sekolah" class="form-control @error('sekolah') is-invalid @enderror" id="sekolah" placeholder="Masukan Sekolah/Institusi">
-                            @error('sekolah')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="bagian_id">Lokasi Mangang</label>
-                            <select wire:model.defer="state.bagian_id" class="form-control @error('bagian_id') is-invalid @enderror">
-                                <option value="">Select Lokasi Mangang</option>
-                                @foreach($bagian as $bg)
-                                <option value="{{ $bg->id }}">{{ $bg->namaTenant }}</option>
-                                @endforeach
-                            </select>
-                            @error('bagian_id')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="tglmulai">Tanggal Mulai</label>
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                        </div>
-                                        <x-datepicker wire:model.defer="state.tglmulai" id="tglmulai" :error="'tglmulai'" />
-                                    </div>
-                                    @error('tglmulai')
-                                    <div class="text-danger mt-1 mb-3" style="font-size: 12px;">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="tglselesai">Tanggal Selesai</label>
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                        </div>
-                                        <x-datepicker wire:model.defer="state.tglselesai" id="tglselesai" :error="'tglselesai'" />
-
-                                    </div>
-                                    @error('tglselesai')
-                                    <div class="text-danger mt-1 mb-3 " style="font-size: 12px;">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="form-group">
-                                    <label for="pembimbing">Pembimbing</label>
-                                    <input type="text" wire:model.defer="state.pembimbing" class="form-control @error('pembimbing') is-invalid @enderror" id="pembimbing" placeholder="Masukan pembimbing">
-                                    @error('pembimbing')
+                                    <label for="nama">Nama Lengkap</label>
+                                    <input type="text" wire:model.defer="state.nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukan Nama Lengkap">
+                                    @error('nama')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group ">
-                                    <label for="pembimbing">Status</label>
-                                    <br>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" wire:model.defer="state.status" name="inlineRadioOptions" id="inlineRadio1" value="1">
-                                        <label class="form-check-label" for="inlineRadio1">Aktif</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" wire:model.defer="state.status" name="inlineRadioOptions" id="inlineRadio2" value="0">
-                                        <label class="form-check-label" for="inlineRadio2">Expired</label>
-                                    </div>
-                                    @error('status')
-                                    <div class="text-danger  " style="font-size: 12px;">
+                                <div class="form-group">
+                                    <label for="sekolah">Sekolah/Institusi</label>
+                                    <input type="text" wire:model.defer="state.sekolah" class="form-control @error('sekolah') is-invalid @enderror" id="sekolah" placeholder="Masukan Sekolah/Institusi">
+                                    @error('sekolah')
+                                    <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label>Select Team Members</label>
+                                    <select wire:model.defer="state.bagian_id" class="form-control @error('bagian_id') is-invalid @enderror">
+                                        <option value="">Select Tenant</option>
+                                        @foreach($bagian as $bg)
+                                        <option value="{{ $bg->id }}">{{ $bg->namaTenant }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('bagian_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="tglmulai">Tanggal Mulai</label>
+                                            <div class="input-group ">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                                </div>
+                                                <x-datepicker wire:model.defer="state.tglmulai" id="tglmulai" :error="'tglmulai'" />
+                                            </div>
+                                            @error('tglmulai')
+                                            <div class="text-danger mt-1 mb-3" style="font-size: 12px;">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="tglselesai">Tanggal Selesai</label>
+                                            <div class="input-group ">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                                </div>
+                                                <x-datepicker wire:model.defer="state.tglselesai" id="tglselesai" :error="'tglselesai'" />
+
+                                            </div>
+                                            @error('tglselesai')
+                                            <div class="text-danger mt-1 mb-3 " style="font-size: 12px;">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label for="pembimbing">Pembimbing</label>
+                                            <input type="text" wire:model.defer="state.pembimbing" class="form-control @error('pembimbing') is-invalid @enderror" id="pembimbing" placeholder="Masukan pembimbing">
+                                            @error('pembimbing')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group ">
+                                            <label for="pembimbing">Status</label>
+                                            <br>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" wire:model.defer="state.status" name="inlineRadioOptions" id="inlineRadio1" value="1">
+                                                <label class="form-check-label" for="inlineRadio1">Aktif</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" wire:model.defer="state.status" name="inlineRadioOptions" id="inlineRadio2" value="0">
+                                                <label class="form-check-label" for="inlineRadio2">Expired</label>
+                                            </div>
+                                            @error('status')
+                                            <div class="text-danger  " style="font-size: 12px;">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="customFile">Profile Photo</label>
+                                    <div class="custom-file">
+                                        <div x-data="{ isUploading: false, progress: 5 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false; progress = 5" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                            <input wire:model="photo" type="file" class="custom-file-input" id="customFile">
+                                            <div x-show.transition="isUploading" class="progress progress-sm mt-2 rounded">
+                                                <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`">
+                                                    <span class="sr-only">40% Complete (success)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="custom-file-label" for="customFile">
+                                            @if ($photo)
+                                            {{ $photo->getClientOriginalName() }}
+                                            @else
+                                            Choose Image
+                                            @endif
+                                        </label>
+                                    </div>
+
+                                    @if ($photo)
+                                    <img src="{{ $photo->temporaryUrl() }}" class="img d-block mt-2 w-100 rounded" height="500">
+                                    @else
+                                    <img src="{{ $state['foto_url'] ?? url('noimage.png') }}" class="img d-block mb-2 w-100 rounded" height="500">
+                                    @endif
+                                </div>
                             </div>
                         </div>
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i> Cancel</button>

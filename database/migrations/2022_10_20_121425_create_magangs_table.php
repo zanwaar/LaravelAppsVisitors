@@ -22,6 +22,7 @@ class CreateMagangsTable extends Migration
             $table->date('tglselesai')->nullable();
             $table->boolean('status')->default(false);
             $table->string('pembimbing');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

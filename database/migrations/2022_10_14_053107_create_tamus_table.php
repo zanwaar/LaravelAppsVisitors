@@ -21,7 +21,6 @@ class CreateTamusTable extends Migration
             $table->string('ni');
             $table->string('jk');
             $table->string('alamat');
-            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

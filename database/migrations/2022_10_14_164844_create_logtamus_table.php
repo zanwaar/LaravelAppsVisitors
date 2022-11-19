@@ -20,6 +20,7 @@ class CreateLogtamusTable extends Migration
             $table->string('keperluan');
             $table->dateTime('checkin');
             $table->dateTime('checkout')->nullable();
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

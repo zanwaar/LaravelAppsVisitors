@@ -16,6 +16,11 @@ class CreateWorkingpermitsTable extends Migration
         Schema::create('workingpermits', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('mitra');
+            $table->string('nowp');
+            $table->string('nama');
+            $table->string('tlpn');
+            $table->string('log');
+            $table->string('lat');
             $table->string('judulpekerjaan');
             $table->string('lokasi');
             $table->date('tglawal')->nullable();

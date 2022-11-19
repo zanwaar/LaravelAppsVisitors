@@ -7,14 +7,22 @@ use App\Models\Bagian;
 use App\Models\Magang;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ListMagang extends AppComponent
 {
+    use WithFileUploads;
     public $state = [];
     public $mMagang;
     public $showEditModal = false;
     public $idBeingRemoved = null;
-
+    public $photo;
+    public $trow = 5;
+    public function row($value)
+    {
+        $this->resetPage();
+        $this->trow = $value;
+    }
     public function addNew()
     {
         $this->reset();
@@ -43,6 +51,10 @@ class ListMagang extends AppComponent
                 'tglselesai.required' => 'Tanggal Selesai field is required',
             ]
         )->validate();
+
+        if ($this->photo) {
+            $validatedData['foto'] = $this->photo->store('/', 'avatars');
+        }
         Magang::create($validatedData);
         $this->dispatchBrowserEvent('hide-form', ['message' => 'created successfully!']);
     }
@@ -98,14 +110,16 @@ class ListMagang extends AppComponent
     public function getMagangProperty()
     {
         return Magang::latest()->with(['bagian'])
-            ->whereRelation('bagian', 'namaTenant', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('nama', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('sekolah', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('status', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('pembimbing', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('tglmulai', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('tglselesai', 'like', '%' . $this->searchTerm . '%')
-            ->paginate(10);
+            ->where(function ($query) {
+                $query->whereRelation('bagian', 'namaTenant', 'like', '%' . $this->searchTerm . '%');;
+                $query->orwhere('nama', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('sekolah', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('status', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('pembimbing', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('tglmulai', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('tglselesai', 'like', '%' . $this->searchTerm . '%');
+            })
+            ->paginate($this->trow);
     }
     public function render()
     {

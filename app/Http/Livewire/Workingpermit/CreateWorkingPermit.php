@@ -19,21 +19,29 @@ class CreateWorkingPermit extends Component
 
     public function create()
     {
-        $this->validate([
-            'fileimport' => 'required|mimes:Xls,xlsx',
-        ]);
+      
         Validator::make($this->state, [
-            // 'fileimport' => 'required|mimes:xls,xlsx', // 1MB Max
             'mitra' => 'required',
+            'nama' => 'required',
+            'nowp' => 'required',
+            'tlpn' => 'required',
+            'log' => 'required',
+            'lat' => 'required',
             'judulpekerjaan' => 'required',
             'lokasi' => 'required',
             'tglawal' => 'required',
             'tglakhir' => 'required',
         ])->validate();
+       
         DB::beginTransaction();
         try {
-            $mitra = Workingpermit::create([  
+            $mitra = Workingpermit::create([
                 'mitra' => $this->state['mitra'],
+                'nama' => $this->state['nama'],
+                'nowp' => $this->state['nowp'],
+                'tlpn' => $this->state['tlpn'],
+                'log' => $this->state['log'],
+                'lat' => $this->state['lat'],
                 'judulpekerjaan' => $this->state['judulpekerjaan'],
                 'lokasi' => $this->state['lokasi'],
                 'tglawal' => $this->state['tglawal'],
@@ -48,7 +56,6 @@ class CreateWorkingPermit extends Component
             // throw $th;
             $this->dispatchBrowserEvent('alert-danger', ['message' => 'Gagal Simpan ' . $th->getMessage()]);
         }
-      
     }
     public function downloadfileimport()
     {

@@ -39,7 +39,7 @@ class ListUsers extends AppComponent
 
 	public $sortDirection = 'desc';
 
-	public function mount(Workingpermit $workingpermit)
+	public function mount()
 	{
 		$this->authorize('admin');
 	}
@@ -222,16 +222,6 @@ class ListUsers extends AppComponent
 	public function updatedSearchTerm()
 	{
 		$this->resetPage();
-	}
-
-	public function startConversation($userId)
-	{
-		$conversation = Conversation::firstOrCreate([
-			'sender_id' => auth()->id(),
-			'receiver_id' => $userId,
-		]);
-
-		return redirect('/messages')->with('selectedConversation', $conversation);
 	}
 
 	public function render()

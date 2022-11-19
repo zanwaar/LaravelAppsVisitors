@@ -24,8 +24,53 @@
                             <form autocomplete="off" wire:submit.prevent="create">
                                 <div class="form-group">
                                     <label for="inputAddress">Mitra</label>
-                                    <input type="text" wire:model.defer="state.mitra" class="form-control @error('mitra') is-invalid @enderror" id="mitra"  placeholder="Mitra ">
+                                    <input type="text" wire:model.defer="state.mitra" class="form-control @error('mitra') is-invalid @enderror" id="mitra" placeholder="Mitra ">
                                     @error('mitra')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">nama kordinator mitra</label>
+                                    <input type="text" wire:model.defer="state.nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="nama ">
+                                    @error('nama')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">No Wp</label>
+                                    <input type="text" wire:model.defer="state.nowp" class="form-control @error('nowp') is-invalid @enderror" id="nowp" placeholder="nowp ">
+                                    @error('nowp')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">Tlpn</label>
+                                    <input type="text" wire:model.defer="state.tlpn" class="form-control @error('tlpn') is-invalid @enderror" id="tlpn" placeholder="tlpn ">
+                                    @error('tlpn')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">Log</label>
+                                    <input type="text" wire:model.defer="state.log" class="form-control @error('log') is-invalid @enderror" id="log" placeholder="log ">
+                                    @error('log')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">lat</label>
+                                    <input type="text" wire:model.defer="state.lat" class="form-control @error('lat') is-invalid @enderror" id="lat" placeholder="lat ">
+                                    @error('lat')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -34,7 +79,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="inputCity">Judul Pekerjaan</label>
-                                        <input type="text" wire:model.defer="state.judulpekerjaan" class="form-control @error('judulpekerjaan') is-invalid @enderror" id="judulpekerjaan"  placeholder="Judul Pekerjaan ">
+                                        <input type="text" wire:model.defer="state.judulpekerjaan" class="form-control @error('judulpekerjaan') is-invalid @enderror" id="judulpekerjaan" placeholder="Judul Pekerjaan ">
                                         @error('judulpekerjaan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -43,7 +88,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputCity">Lokasi</label>
-                                        <input type="text" wire:model.defer="state.lokasi" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi"  placeholder="Lokasi">
+                                        <input type="text" wire:model.defer="state.lokasi" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" placeholder="Lokasi">
                                         @error('lokasi')
                                         <div class="invalid-feedback">
                                             {{ $message }}

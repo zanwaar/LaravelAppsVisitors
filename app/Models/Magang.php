@@ -7,6 +7,7 @@ use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Magang extends Model
@@ -28,7 +29,16 @@ class Magang extends Model
      * @var bool
      */
     public $incrementing = false;
-    protected $guarded = [];
+    protected $fillable = [
+        'bagian_id',
+        'nama',
+        'sekolah',
+        'tglmulai',
+        'tglselesai',
+        'status',
+        'pembimbing',
+        'foto',
+    ];
     protected $casts = [
         'tglmulai' => 'datetime',
         'tglselesai' => 'datetime',
@@ -51,5 +61,16 @@ class Magang extends Model
     public function getTglselesaiAttribute($selesai)
     {
         return Carbon::parse($selesai)->toFormattedDate();
+    }
+    protected $appends = [
+        'foto_url',
+    ];
+    public function getFotoUrlAttribute()
+    {
+        if ($this->foto && Storage::disk('avatars')->exists($this->foto)) {
+            return Storage::disk('avatars')->url($this->foto);
+        }
+
+        return asset('noimage.png');
     }
 }

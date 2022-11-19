@@ -73,7 +73,6 @@ class CreateTamu extends Component
                 'jenisid' => $this->state['jenisid'],
                 'ni' => $this->state['ni'],
                 'jk' => $this->state['jk'],
-                'foto' => $this->photo,
                 'alamat' => $this->state['alamat'],
             ]);
             Logtamu::create(
@@ -83,6 +82,7 @@ class CreateTamu extends Component
                     'bagian_id' => $this->state['tenant'],
                     'checkin' => now(),
                     'checkout' => null,
+                    'foto' => $this->photo,
                 ]
             );
             DB::commit();
@@ -96,6 +96,7 @@ class CreateTamu extends Component
     }
     public function update()
     {
+        $this->twebcam = $this->state['foto'];
         Validator::make(
             $this->state,
             [
@@ -121,12 +122,14 @@ class CreateTamu extends Component
         }
         DB::beginTransaction();
         try {
+            $this->createphoto();
             Logtamu::create([
                 'tamu_id' => $this->mtamu->id,
                 'keperluan' => $this->state['keperluan'],
                 'bagian_id' => $this->state['tenant'],
                 'checkin' => now(),
                 'checkout' => null,
+                'foto' => $this->photo,
             ]);
             DB::commit();
         } catch (\Throwable $th) {

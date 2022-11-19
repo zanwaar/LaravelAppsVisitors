@@ -199,7 +199,6 @@
                             <h3 class="card-title">from input Tamu</h3>
                         </div>
 
-                        @if (!$show)
                         <div class="card-body">
                             <button type="button" class="btn btn-info mb-3 btn-sm" data-toggle="modal" wire:click.prevent="fwebcam">
                                 Take Snapshot
@@ -230,12 +229,7 @@
                             </div>
                         </div>
 
-                        @else
-                        <div class="card-body">
-                            <input type="hidden" wire:model="state.foto" class="image-tag">
-                            <img src="{{url('storage/upload/'.$state['foto'])}}" class="img d-block mt-2 w-100 rounded">
-                        </div>
-                        @endif
+                      
 
 
                     </div>
@@ -243,8 +237,7 @@
             </form>
         </div>
     </section>
-    <!-- /.col -->.
-    <!-- Button trigger modal -->
+
 </div>
 
 @include('livewire/tamu/tamu-js')

@@ -61,7 +61,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at',
         'created_at',
         'updated_at',
-    ];
+    ]; 
 
     /**
      * The attributes that should be cast to native types.

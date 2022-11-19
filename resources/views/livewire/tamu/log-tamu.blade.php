@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Buku Tamu</h1>
+                    <h1>Log Tamu</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -33,16 +33,21 @@
             <div class="card">
                 <div class="card-header">
                     <div class="btn-group">
-
-                        <select wire:change="maropsi($event.target.value)" style="height: 2rem; outline: 2px solid transparent;" class="px-1 rounded border-0">
-                            <option value="TODAY">Hari ini</option>
-                            <option value="MTD">Bulan Ini</option>
-                            <option value="ALL">All</option>
-                            <!-- <option value="YTD">Year to Date</option> -->
+                        <select wire:change="row($event.target.value)" class="form-control rounded shadow-sm mr-3">
+                            <option value="1">1</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
                         </select>
-                        <!-- <button wire:click.prevent="markAllAsCheckout" type="button" class="btn btn-success btn-sm">
-                            CheckOut
-                        </button> -->
+                        <select wire:change="maropsi($event.target.value)" style="height: 2rem; outline: 2px solid transparent;" class="px-1 rounded border-0 mr-3">
+                            <option value="TODAY">Hari ini</option>
+                            <option value="MTD">Bulan ini</option>
+                            <option value="YTD">Tahun ini</option>
+                            <option value="ALL">Tamplikan Semua</option>
+                        </select>
                     </div>
                     @if ($selectedRows)
 
@@ -90,33 +95,38 @@
                                     <th>Tglcheckin</th>
                                     <th>Tgl checkout</th>
                                     <th>Status</th>
+                                    <th></th>
                                 </tr>
                                 @forelse ($logtamu as $index => $ts)
                                 <tr>
-                                    <td style="width: 10px;">
+
+                                    <td style="width: 10px; vertical-align:middle;">
                                         <div class="icheck-primary d-inline">
                                             <input wire:model="selectedRows" type="checkbox" value="{{ $ts->id }}" name="todo2" id="{{ $ts->id }}">
                                             <label for="{{ $ts->id }}"></label>
                                         </div>
                                     </td>
-                                    <td>{{ $logtamu->firstItem() + $index }}</td>
-                                    <td>{{ $ts->tamu->nama }}</td>
-                                    <td>{{ $ts->tamu->instansi }}</td>
-                                    <td>{{ $ts->bagian->namaTenant }}</td>
-                                    <td>{{ $ts->keperluan }}</td>
-                                    <td>{{ $ts->checkin }}</td>
-                                    <td>{{ $ts->checkout}}</td>
+
+                                    <td style="vertical-align:middle;">{{ $logtamu->firstItem() + $index }}
+                                    </td>
+                                    <td style="vertical-align:middle;">{{ $ts->tamu->nama }}</td>
+                                    <td style="vertical-align:middle;">{{ $ts->tamu->instansi }}</td>
+                                    <td style="vertical-align:middle;">{{ $ts->bagian->namaTenant }}</td>
+                                    <td style="vertical-align:middle;">{{ $ts->keperluan }}</td>
+                                    <td style="vertical-align:middle;">{{ $ts->checkin }}</td>
+                                    <td style="vertical-align:middle;">{{ $ts->checkout}}</td>
                                     @if ($ts->checkout)
-                                    <td><span class="badge badge-success px-1">CHECKOUT</span> </td>
+                                    <td style="vertical-align:middle;"><span class="badge badge-success px-1">CHECKOUT</span> </td>
                                     @else
-                                    <td> <span class="badge badge-primary  px-1">CHECKIN</span></td>
+                                    <td style="vertical-align:middle;"> <span class="badge badge-primary  px-1">CHECKIN</span></td>
                                     @endif
-
-
+                                    <td style="vertical-align:middle;">
+                                        <img src="{{url('storage/upload/'.$ts->foto)}}" wire:click.prevent="btndetail({{ $ts }})" class="img d-block mt-2 rounded" width="100" height="">
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr class="text-center">
-                                    <td colspan="9">
+                                    <td colspan="10">
                                         <img src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/v2/assets/empty.svg" alt="No results found">
                                         <p class="mt-2">No Results Found</p>
                                     </td>
@@ -139,6 +149,26 @@
 
         <!-- /.col -->.
     </section>
+    <!-- Modal -->
+    <div class="modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Delete</h5>
+                </div>
+
+                <div class="modal-body">
+                    <h4>Konfirmasi Delete</h4>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i> Cancel</button>
+                    <button type="button" wire:click.prevent="delete" class="btn btn-danger"><i class="fa fa-trash mr-1"></i>Delete</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 <!-- /.row -->
 
