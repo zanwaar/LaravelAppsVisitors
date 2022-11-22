@@ -27,6 +27,20 @@
             </div>
             <div class="card">
                 <div class="card-header">
+                    <div class="float-left mr-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <select wire:change="row($event.target.value)" class="form-control rounded shadow-sm mr-3">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="float-right">
                         <div class="btn-group">
                             <div class=" input-group input-group-sm">

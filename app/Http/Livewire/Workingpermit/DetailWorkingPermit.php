@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Workingpermit;
 
 use App\Models\Personil;
 use App\Models\Workingpermit;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -13,6 +14,7 @@ class DetailWorkingPermit extends Component
 {
     use WithPagination;
     use WithFileUploads;
+    use AuthorizesRequests;
     protected $paginationTheme = 'simple-bootstrap';
     public $state = [];
     public $workingpermit;
@@ -102,6 +104,9 @@ class DetailWorkingPermit extends Component
         $this->authorize('admin');
         Validator::make($this->state, [
             'mitra' => 'required',
+            'nama' => 'required',
+            'nowp' => 'required',
+            'tlpn' => 'required',
             'judulpekerjaan' => 'required',
             'lokasi' => 'required',
             'tglawal' => 'required',
@@ -112,6 +117,9 @@ class DetailWorkingPermit extends Component
             [
                 'mitra' => $this->state['mitra'],
                 'judulpekerjaan' => $this->state['judulpekerjaan'],
+                'nama' => $this->state['nama'],
+                'nowp' => $this->state['nowp'],
+                'tlpn' => $this->state['tlpn'],
                 'lokasi' => $this->state['lokasi'],
                 'tglawal' => $this->state['tglawal'],
                 'tglakhir' => $this->state['tglakhir'],

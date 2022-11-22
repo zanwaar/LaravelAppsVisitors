@@ -28,7 +28,7 @@
                 @endrole
             </div>
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-7">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
@@ -38,7 +38,7 @@
                             @role('admin')
                             <div class="float-right">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" wire:click.prevent="editmitra()" class="btn btn-info shadow-sm btn-sm"><i class="fa fa-edit mr-2"></i>Edit</button>
+                                    <a href="{{ route('editworking', $state['id']) }}" class="btn btn-info shadow-sm btn-sm text-white"><i class="fa fa-edit mr-2"></i>Edit</a>
                                     <button type="button" wire:click.prevent="hapusmitra()" class="btn btn-danger shadow-sm btn-sm"><i class="fas fa-trash mr-2"></i>Hapus</button>
                                 </div>
                             </div>
@@ -46,20 +46,28 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <h4 class="text-bold">Kordinator</h4>
+                            <h4>{{$state['nama']}} <span class="ml-5 mb-3 "> Tlpn {{$state['tlpn']}}</span> </h4>
                             <dl>
+                                <dt>No Wp</dt>
+                                <dd>{{$state['nowp']}}</dd>
+
                                 <dt>Judul Pekerjaan</dt>
                                 <dd>{{$state['judulpekerjaan']}}</dd>
+
+
+                                <dt>Durasi Pekerjaan</dt>
+                                <dd>Tanggal Mulai <span class="text-bold mr-5">{{$state['tglawal']}}</span> Tanggal Berakhir <span class=" text-bold">{{$state['tglakhir']}}</span> </dd>
                                 <dt>Lokasi</dt>
                                 <dd>{{$state['lokasi']}}</dd>
-                                <dt>Durasi</dt>
-                                <dd>Tanggal Mulai <span class="text-bold">{{$state['tglawal']}}</span> Tanggal Berakhir <span class=" text-bold">{{$state['tglakhir']}}</span> </dd>
-
+                                <dd><a href="https://www.google.com/maps/place/{{$state['titikkor']}}" target="_blank" class="text-info" rel="noopener noreferrer">Link Google Maps</a></dd>
                             </dl>
+                            <iframe src="https://maps.google.com/maps?q={{$state['titikkor']}}&z=15&output=embed" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                         <!-- /.card-body -->
                     </div>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-5">
                     @role('admin')
                     <div class="card">
                         <div class="card-header">
@@ -176,120 +184,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-
-                </div>
             </div>
 
         </div>
     </section>
 
     @role('admin')
-    <!-- Modal -->
-    <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog  modal-lg" role="document">
-            <form autocomplete="off" wire:submit.prevent="updatemitra">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            <span>Edit Mitra</span>
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="mitra">mitra</label>
-                            <input type="text" wire:model.defer="state.mitra" class="form-control @error('mitra') is-invalid @enderror" id="mitra" aria-describedby="nameHelp" placeholder="Enter mitra Tenant">
-                            @error('mitra')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="row">
-
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="judulpekerjaan">Judul Pekerjaan</label>
-                                    <input type="text" wire:model.defer="state.judulpekerjaan" class="form-control @error('judulpekerjaan') is-invalid @enderror" id="judulpekerjaan" aria-describedby="nameHelp" placeholder="Enter judulpekerjaan Tenant">
-                                    @error('judulpekerjaan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="lokasi">lokasi</label>
-                                    <input type="text" wire:model.defer="state.lokasi" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" aria-describedby="nameHelp" placeholder="Enter lokasi Tenant">
-                                    @error('lokasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="tglawal">Tanggal Awal</label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                        </div>
-                                        <x-datepicker wire:model.defer="state.tglawal" id="tglawal" :error="'date'" />
-                                        @error('date')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="tglakhir">Tanggal Berakhir</label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                        </div>
-                                        <x-datepicker wire:model.defer="state.tglakhir" id="tglakhir" :error="'date'" />
-                                        @error('date')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i> Cancel</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i>
-                            @if($showEditModal)
-                            <span>Save Changes</span>
-                            @else
-                            <span>Save</span>
-                            @endif
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <!-- Modal -->
     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog" role="document">
@@ -312,7 +212,13 @@
     @endrole
 
 </div>
+@role('admin')
+@push('styles')
+<link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+@endpush
+
 @push('js')
 <script type="text/javascript" src="https://unpkg.com/moment"></script>
 <script type="text/javascript" src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 @endpush
+@endrole

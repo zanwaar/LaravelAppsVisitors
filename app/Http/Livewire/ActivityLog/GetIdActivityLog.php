@@ -13,7 +13,7 @@ class GetIdActivityLog extends AppComponent
         $user =  Auth::user();
         $log = Activity::latest()
             ->where('causer_id', $user->getAuthIdentifier())
-            ->paginate(15);
+            ->paginate($this->trow);
         return view('livewire.activity-log.get-id-activity-log', [
             'log' => $log,
         ]);

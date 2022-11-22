@@ -72,7 +72,7 @@ class ListBagian extends AppComponent
     }
 
     public function delete()
-    { 
+    {
         $bagian = Bagian::findOrFail($this->idBeingRemoved);
 
         $bagian->delete();
@@ -88,7 +88,7 @@ class ListBagian extends AppComponent
     public function import()
     {
         $this->validate([
-            'fileimport' => 'required|mimes:Xls,xlsx', 
+            'fileimport' => 'required|mimes:Xls,xlsx',
         ]);
         DB::beginTransaction();
         try {
@@ -102,7 +102,6 @@ class ListBagian extends AppComponent
             //throw $th;
             $this->dispatchBrowserEvent('alert-danger', ['message' => 'Gagal Simpan Format Tidak Sesuai ']);
         }
-      
     }
     public function export()
     {
@@ -112,12 +111,14 @@ class ListBagian extends AppComponent
     public function getBagianProperty()
     {
         return Bagian::latest()
-            ->where('namaTenant', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('penanggungJawab', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('tlpn', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('email', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('lantaiTenant', 'like', '%' . $this->searchTerm . '%')
-            ->paginate(10);
+            ->where(function ($query) {
+                $query->where('namaTenant', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('penanggungJawab', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('tlpn', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('email', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('lantaiTenant', 'like', '%' . $this->searchTerm . '%');
+            })
+            ->paginate($this->trow);
     }
     public function downloadfileimport()
     {

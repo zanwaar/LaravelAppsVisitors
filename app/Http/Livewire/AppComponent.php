@@ -20,5 +20,12 @@ class AppComponent extends Component
     {
         $this->resetPage();
     }
+    public $trow = 5;
 
+    function row($value)
+    {
+        $this->searchTerm = null;
+        $this->resetPage();
+        $this->trow = $value;
+    }
 }

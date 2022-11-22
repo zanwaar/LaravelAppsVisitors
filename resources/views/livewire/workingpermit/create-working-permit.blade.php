@@ -31,8 +31,17 @@
                                     </div>
                                     @enderror
                                 </div>
+                                <div class="form-group ">
+                                    <label for="inputCity">Judul Pekerjaan</label>
+                                    <input type="text" wire:model.defer="state.judulpekerjaan" class="form-control @error('judulpekerjaan') is-invalid @enderror" id="judulpekerjaan" placeholder="Judul Pekerjaan ">
+                                    @error('judulpekerjaan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
                                 <div class="form-group">
-                                    <label for="inputAddress">nama kordinator mitra</label>
+                                    <label for="inputAddress">Nama Kordinator Mitra</label>
                                     <input type="text" wire:model.defer="state.nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="nama ">
                                     @error('nama')
                                     <div class="invalid-feedback">
@@ -40,123 +49,126 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputAddress">No Wp</label>
-                                    <input type="text" wire:model.defer="state.nowp" class="form-control @error('nowp') is-invalid @enderror" id="nowp" placeholder="nowp ">
-                                    @error('nowp')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputAddress">Tlpn</label>
-                                    <input type="text" wire:model.defer="state.tlpn" class="form-control @error('tlpn') is-invalid @enderror" id="tlpn" placeholder="tlpn ">
-                                    @error('tlpn')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputAddress">Log</label>
-                                    <input type="text" wire:model.defer="state.log" class="form-control @error('log') is-invalid @enderror" id="log" placeholder="log ">
-                                    @error('log')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputAddress">lat</label>
-                                    <input type="text" wire:model.defer="state.lat" class="form-control @error('lat') is-invalid @enderror" id="lat" placeholder="lat ">
-                                    @error('lat')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
+
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="inputCity">Judul Pekerjaan</label>
-                                        <input type="text" wire:model.defer="state.judulpekerjaan" class="form-control @error('judulpekerjaan') is-invalid @enderror" id="judulpekerjaan" placeholder="Judul Pekerjaan ">
-                                        @error('judulpekerjaan')
+                                        <label for="inputAddress">No Wp</label>
+                                        <input type="text" wire:model.defer="state.nowp" class="form-control @error('nowp') is-invalid @enderror" id="nowp" placeholder="nowp ">
+                                        @error('nowp')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="inputCity">Lokasi</label>
-                                        <input type="text" wire:model.defer="state.lokasi" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" placeholder="Lokasi">
-                                        @error('lokasi')
+                                        <label for="inputAddress">No Handphone</label>
+                                        <input type="text" wire:model.defer="state.tlpn" class="form-control @error('tlpn') is-invalid @enderror" id="tlpn" placeholder="tlpn ">
+                                        @error('tlpn')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
                                 </div>
+
+
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="tglawal">Tanggal Mulai</label>
-                                        <div class="input-group ">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                            </div>
-                                            <x-datepicker wire:model.defer="state.tglawal" id="tglawal" :error="'tglawal'" />
 
-                                        </div>
-                                        @error('tglawal')
-                                        <div class="text-danger mt-1 mb-3 " style="font-size: 12px;">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="tglakhir">Tanggal Berakhir</label>
-                                        <div class="input-group ">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                            </div>
-                                            <x-datepicker wire:model.defer="state.tglakhir" id="tglakhir" :error="'tglakhir'" />
 
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputCity">Titik Kordinat</label>
+                                            <input type="text" name="titikkor" id="titikkor" wire:model.defer="state.titikkor" class="form-control @error('lokasi') is-invalid @enderror" placeholder="Lokasi">
+                                            @error('titikkor')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
-                                        @error('tglakhir')
-                                        <div class="text-danger mt-1 mb-3 " style="font-size: 12px;">
-                                            {{ $message }}
+
+                                        <div class="form-group">
+                                            <label for="inputCity">Lokasi</label>
+                                            <input type="text" wire:model.defer="state.lokasi" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" placeholder="Lokasi">
+                                            @error('lokasi')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <h3>Upload Anggota</h3>
-                                <hr>
-                                <div class="form-group">
-                                    <label for="customFile">File Import</label>
-                                    <div class="custom-file">
-                                        <div x-data="{ isUploading: false, progress: 5 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false; progress = 5" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                            <input wire:model="fileimport" type="file" class="custom-file-input" id="customFile">
-                                            <div x-show.transition="isUploading" class="progress progress-sm mt-2 rounded">
-                                                <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`">
-                                                    <span class="sr-only">40% Complete (success)</span>
+                                        <div class="form-group">
+                                            <label for="tglawal">Tanggal Mulai</label>
+                                            <div class="input-group ">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                                 </div>
+                                                <x-datepicker wire:model.defer="state.tglawal" id="tglawal" :error="'tglawal'" />
+
                                             </div>
-                                            @error('fileimport')
+                                            @error('tglawal')
                                             <div class="text-danger mt-1 mb-3 " style="font-size: 12px;">
                                                 {{ $message }}
                                             </div>
                                             @enderror
                                         </div>
-                                        <label class="custom-file-label" for="customFile">
-                                            @if ($fileimport)
-                                            {{ $fileimport->getClientOriginalName() }}
-                                            @else
-                                            Choose File
-                                            @endif
-                                        </label>
+                                        <div class="form-group">
+                                            <label for="tglakhir">Tanggal Berakhir</label>
+                                            <div class="input-group ">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                                </div>
+                                                <x-datepicker wire:model.defer="state.tglakhir" id="tglakhir" :error="'tglakhir'" />
+
+                                            </div>
+                                            @error('tglakhir')
+                                            <div class="text-danger mt-1 mb-3 " style="font-size: 12px;">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        <div class="">
+                                            <h3>Upload Anggota</h3>
+                                            <hr>
+                                            <div class="form-group">
+                                                <label for="customFile">File Import</label>
+                                                <div class="custom-file">
+                                                    <div x-data="{ isUploading: false, progress: 5 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false; progress = 5" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                                        <input wire:model="fileimport" type="file" class="custom-file-input" id="customFile">
+                                                        <div x-show.transition="isUploading" class="progress progress-sm mt-2 rounded">
+                                                            <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`">
+                                                                <span class="sr-only">40% Complete (success)</span>
+                                                            </div>
+                                                        </div>
+                                                        @error('fileimport')
+                                                        <div class="text-danger mt-1 mb-3 " style="font-size: 12px;">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </div>
+                                                    <label class="custom-file-label" for="customFile">
+                                                        @if ($fileimport)
+                                                        {{ $fileimport->getClientOriginalName() }}
+                                                        @else
+                                                        Choose File
+                                                        @endif
+                                                    </label>
+                                                </div>
+                                                <a href="" wire:click.prevent="downloadfileimport" class="text-primary"> Download Format File Import</a>
+
+                                            </div>
+                                        </div>
                                     </div>
-                                    <a href="" wire:click.prevent="downloadfileimport" class="text-primary"> Download Format File Import</a>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputAddress">Peta</label>
+                                        @include('livewire/workingpermit/js')
+                                        @error('log')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
 
                                 </div>
+
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </form>
                         </div>
@@ -165,11 +177,5 @@
             </div>
         </div>
     </section>
+
 </div>
-@push('styles')
-<link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
-@endpush
-@push('js')
-<script type="text/javascript" src="https://unpkg.com/moment"></script>
-<script type="text/javascript" src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-@endpush

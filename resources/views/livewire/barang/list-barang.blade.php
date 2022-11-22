@@ -21,6 +21,16 @@
             </div>
             <div class="card">
                 <div class="card-header">
+                    <div class="float-left mr-3">
+                        <select wire:change="row($event.target.value)" class="form-control rounded shadow-sm mr-3">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
                     <div class="btn-group-sm pt-1 btn-group">
                         <button wire:click="filterBarangsByStatus('')" type="button" class="btn btn-default">ALL</button>
                         <button wire:click="filterBarangsByStatus(0)" type="button" class="btn btn-warning ">Belum Diambil</button>

@@ -161,15 +161,17 @@ class ListBarang extends AppComponent
     public function getBarangProperty()
     {
         return Barang::latest()->with(['bagian'])
+            ->where(function ($query) {
+                $query->whereRelation('bagian', 'namaTenant', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('nama', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('jenis', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('pengirim', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('penerima', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('diambil', 'like', '%' . $this->searchTerm . '%');
+                $query->orwhere('status', 'like', '%' . $this->searchTerm . '%');
+            })
 
-            ->whereRelation('bagian', 'namaTenant', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('nama', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('jenis', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('pengirim', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('penerima', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('diambil', 'like', '%' . $this->searchTerm . '%')
-            ->orwhere('status', 'like', '%' . $this->searchTerm . '%')
-            ->paginate(10);
+            ->paginate($this->trow);
     }
     public function render()
     {

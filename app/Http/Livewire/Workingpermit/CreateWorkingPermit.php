@@ -19,20 +19,19 @@ class CreateWorkingPermit extends Component
 
     public function create()
     {
-      
+
         Validator::make($this->state, [
             'mitra' => 'required',
             'nama' => 'required',
             'nowp' => 'required',
             'tlpn' => 'required',
-            'log' => 'required',
-            'lat' => 'required',
+            'titikkor' => 'required',
             'judulpekerjaan' => 'required',
             'lokasi' => 'required',
             'tglawal' => 'required',
             'tglakhir' => 'required',
         ])->validate();
-       
+
         DB::beginTransaction();
         try {
             $mitra = Workingpermit::create([
@@ -40,8 +39,7 @@ class CreateWorkingPermit extends Component
                 'nama' => $this->state['nama'],
                 'nowp' => $this->state['nowp'],
                 'tlpn' => $this->state['tlpn'],
-                'log' => $this->state['log'],
-                'lat' => $this->state['lat'],
+                'titikkor' => $this->state['titikkor'],
                 'judulpekerjaan' => $this->state['judulpekerjaan'],
                 'lokasi' => $this->state['lokasi'],
                 'tglawal' => $this->state['tglawal'],
@@ -50,7 +48,7 @@ class CreateWorkingPermit extends Component
             Excel::import(new PersonilImport($mitra->id), $this->fileimport);
             DB::commit();
             $this->dispatchBrowserEvent('hide-form', ['message' => 'added successfully!']);
-            return redirect()->route('listworking');
+            return redirect()->route('detailworking.detail', $mitra->id);
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;

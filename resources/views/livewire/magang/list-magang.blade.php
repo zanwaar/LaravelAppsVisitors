@@ -22,8 +22,22 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <div class="float-left">
-                        <h3 class="card-title">Log Daftar Pkl / Mangang</h3>
+                    <div class="float-left ">
+                        <div class="row">
+                            <div class="col-4">
+                                <select wire:change="row($event.target.value)" class="form-control rounded shadow-sm mr-3">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <div class="col-8">
+                                <h3 class="card-title mt-2">Log Daftar Pkl / Mangang</h3>
+                            </div>
+                        </div>
                     </div>
                     <div class="float-right">
                         <div class="btn-group">

@@ -14,6 +14,7 @@ use App\Http\Livewire\Tamu\LogTamu;
 use App\Http\Livewire\Users\ListUsers;
 use App\Http\Livewire\Workingpermit\CreateWorkingPermit;
 use App\Http\Livewire\Workingpermit\DetailWorkingPermit;
+use App\Http\Livewire\Workingpermit\EditWorkingPermit;
 use App\Http\Livewire\Workingpermit\ListWorkingPermit;
 
 Route::get('/symlink', function () {
@@ -35,8 +36,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('activity', ActivityLog::class)->name('activity')->middleware('role:admin');
     Route::get('listworking', ListWorkingPermit::class)->name('listworking');
     Route::get('createworking', CreateWorkingPermit::class)->name('createworking')->middleware('role:admin');
-    Route::get('detailworking/{workingpermit}/detail', DetailWorkingPermit::class)->name('detailworking.detail');
+    Route::get('detailworking/{workingpermit}/Detail', DetailWorkingPermit::class)->name('detailworking.detail');
+    Route::get('editworking/{workingpermit}', EditWorkingPermit::class)->name('editworking')->middleware('role:admin');
     Route::get('profile', UpdateProfile::class)->name('profile.edit');
     Route::get('settings', UpdateSetting::class)->name('settings')->middleware('role:admin');
-    Route::get('users', ListUsers::class)->name('users'); 
+    Route::get('users', ListUsers::class)->name('users');
 });

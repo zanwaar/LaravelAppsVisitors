@@ -23,6 +23,20 @@
 
             <div class="card">
                 <div class="card-header">
+                    <div class="float-left mr-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <select wire:change="row($event.target.value)" class="form-control rounded shadow-sm mr-3">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="btn-group-sm pt-1 btn-group">
                         <button wire:click.prevent="addNew" class="btn btn-info"><i class="fa fa-plus-circle mr-1"></i>Tambah Bagian</button>
 
@@ -203,7 +217,7 @@
                             <label for="customFile">File Import</label>
                             <div class="custom-file">
                                 <div x-data="{ isUploading: false, progress: 5 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false; progress = 5" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                    <input wire:model="fileimport" type="file" class="custom-file-input is-invalid"  id="customFile">
+                                    <input wire:model="fileimport" type="file" class="custom-file-input is-invalid" id="customFile">
                                     <div x-show.transition="isUploading" class="progress progress-sm mt-2 rounded">
                                         <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`">
                                             <span class="sr-only">40% Complete (success)</span>

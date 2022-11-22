@@ -19,8 +19,7 @@ class CreateWorkingpermitsTable extends Migration
             $table->string('nowp');
             $table->string('nama');
             $table->string('tlpn');
-            $table->string('log');
-            $table->string('lat');
+            $table->string('titikkor');
             $table->string('judulpekerjaan');
             $table->string('lokasi');
             $table->date('tglawal')->nullable();

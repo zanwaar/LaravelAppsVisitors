@@ -31,7 +31,18 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Daftar Tamu</h3>
+                    <div class="btn-group">
+                        <select wire:change="row($event.target.value)" class="form-control rounded shadow-sm mr-3">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <option class="mt-1">Daftar Tamu</option>
+                    </div>
+
                     <div class="card-tools">
                         <div class=" input-group input-group-sm">
                             <x-search-input wire:model="searchTerm" />

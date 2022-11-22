@@ -30,7 +30,24 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Management Users</h4>
+                            <div class="float-left mr-3">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <select wire:change="row($event.target.value)" class="form-control rounded shadow-sm mr-3">
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="15">15</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-8">
+                                        <h4 class="card-title mt-2">Management Users</h4>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="card-body">
                             <table class="table table-responsive-md table-striped">
