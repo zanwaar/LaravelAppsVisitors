@@ -2,7 +2,8 @@
 
 namespace App\Http\Livewire\Tamu;
 
-
+use App\Exports\LogTamuTglExport;
+use App\Exports\TamusExport;
 use App\Http\Livewire\AppComponent;
 use App\Models\Logtamu as ModelsLogtamu;
 use Illuminate\Database\Eloquent\Builder;
@@ -11,15 +12,30 @@ class LogTamu extends AppComponent
 {
     public $selectedRows = [];
     public $selectPageRows = false;
-    public $option = 'TODAY';
-    public $searchTerm = null;
-    public $trow = 5;
+    public $option = 'ALL';
+    public $dateawal;
+    public $dateakhir;
 
-    protected $queryString = ['searchTerm' => ['except' => '']];
-    
     public function updatedSearchTerm()
     {
         $this->resetPage();
+    }
+    public function fexcel()
+    {
+        if ($this->dateawal > $this->dateakhir) {
+            return $this->dispatchBrowserEvent('alert-danger', ['message' => 'Tanggal salah mohon periksa Kembali']);
+        }
+        $data = ModelsLogtamu::latest()->with(['tamu', 'bagian'])->whereBetween('checkin', [$this->dateawal, $this->dateakhir]);
+        if ($data->count() == 0) {
+            return $this->dispatchBrowserEvent('alert-danger', ['message' => 'Export Gagal Data Tidak Ditemukan']);
+        }
+        $nama = 'from-' . $this->dateawal . '-to-' . $this->dateakhir . '-LogTamu.xls';
+        try {
+            return (new LogTamuTglExport($this->dateawal, $this->dateakhir))->download($nama);
+        } catch (\Throwable $th) {
+            // throw $th;
+            $this->dispatchBrowserEvent('alert-danger', ['message' => 'Gagal']);
+        }
     }
 
     public function camcel()
@@ -49,6 +65,16 @@ class LogTamu extends AppComponent
             ->whereBetween('checkin', $this->maropsi($this->option))
             ->paginate($this->trow);
     }
+    public function export()
+    {
+
+        try {
+            return (new TamusExport($this->selectedRows))->download(time() . '-Detail-Log-Tamu.xls');
+        } catch (\Throwable $th) {
+            //throw $th;
+            $this->dispatchBrowserEvent('alert-danger', ['message' => 'Gagal']);
+        }
+    }
 
     public function maropsi($option)
     {
@@ -69,7 +95,7 @@ class LogTamu extends AppComponent
         }
         if ($option == 'ALL') {
             $this->option = $option;
-            return ['01-01-1000', now()];
+            return ['900-01-01', now()];
         }
 
         return [now()->subDays($option), now()];

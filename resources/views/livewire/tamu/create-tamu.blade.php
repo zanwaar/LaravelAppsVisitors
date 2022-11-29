@@ -23,10 +23,10 @@
             <div class="row">
                 <div class="col-5">
                     <div class="btn-group mb-3 shadow-sm">
-                        <a href="{{ route('tamu') }}" type="button" class="btn bg-white text-muted">
+                        <a href="{{ route('tamu') }}" type="button" class="btn btn-outline-secondary shadow-sm">
                             <i class="fas fa-reply mr-2"></i>log Tamu
                         </a>
-                        <a href="{{ route('daftartamu') }}" type="button" class="btn bg-white text-muted">
+                        <a href="{{ route('daftartamu') }}" type="button" class="btn btn-outline-secondary shadow-sm">
                             <i class="fa fa-solid fa-address-book mr-2"></i>Daftar Tamu
                         </a>
                         <!-- <a href="" wire:click.prevent="edit('90365a13-7f5a-41e7-abc6-bae8f30e3cb8') type=" button" class="btn bg-white text-muted">

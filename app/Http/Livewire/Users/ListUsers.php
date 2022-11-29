@@ -231,7 +231,7 @@ class ListUsers extends AppComponent
 			->orwhere('name', 'like', '%' . $this->searchTerm . '%')
 			->orWhere('email', 'like', '%' . $this->searchTerm . '%')
 			->orderBy($this->sortColumnName, $this->sortDirection)
-			->paginate(15);
+			->paginate($this->trow);
 		// $role = $users->roles;
 
 		return view('livewire.users.list-users', [

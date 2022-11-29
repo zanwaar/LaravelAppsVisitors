@@ -19,8 +19,10 @@
                 <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Page No Results Found.</h3>
 
                 <p>
-                    Mohon Maaf Halaman ini Tidak ditemukan atau salah.
-                    <a href="{{ route('dashboard') }}">Kembali ke home</a>
+                    Mohon Maaf ini terjadi saat halaman tidak di temukan dan
+                </p>
+                <p>
+                    Terdekteksi boot segera reload halaman atau <a href="{{ route('dashboard') }}">Kembali ke home</a>
                 </p>
             </div>
             <!-- /.error-content -->

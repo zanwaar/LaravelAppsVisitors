@@ -9,7 +9,7 @@ class ListWorkingPermit extends AppComponent
 {
     public function getmitraProperty()
     {
-        return Workingpermit::latest()->paginate(10);
+        return Workingpermit::latest()->paginate($this->trow);
     }
     public function render()
     {

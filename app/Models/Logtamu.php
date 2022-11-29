@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Logtamu extends Model
@@ -30,7 +31,19 @@ class Logtamu extends Model
     protected $guarded = [];
     protected static $logName = 'LogTamu';
     protected static $logFillable = true;
+    protected $appends = [
+        'foto_url',
+    ];
 
+
+    public function getFotoUrlAttribute()
+    {
+        if ($this->foto && Storage::disk('upload')->exists($this->foto)) {
+            return Storage::disk('upload')->url($this->foto);
+        }
+
+        return asset('noimage.png');
+    }
     public function getDescriptionForEvent(string $eventName): string
     {
         return  Auth::user()->name . " Melakukan {$eventName} Log Tamu";

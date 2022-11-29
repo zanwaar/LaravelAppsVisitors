@@ -22,10 +22,10 @@
     <section class="content">
         <div class="container-fluid">
             <div class="btn-group mb-3 shadow-sm">
-                <a href="{{ route('tamu') }}" type="button" class="btn bg-white text-muted">
+                <a href="{{ route('tamu') }}" type="button" class="btn btn-outline-secondary">
                     <i class="fas fa-reply mr-2"></i>log Tamu
                 </a>
-                <a href="{{ route('tambahtamu') }}" type="button" class="btn bg-white text-muted">
+                <a href="{{ route('tambahtamu') }}" type="button" class="btn btn-outline-secondary">
                     <i class="fa fa-plus-circle mr-2"></i>Tambah Tamu
                 </a>
             </div>
@@ -33,6 +33,7 @@
                 <div class="card-header">
                     <div class="btn-group">
                         <select wire:change="row($event.target.value)" class="form-control rounded shadow-sm mr-3">
+                           
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
@@ -40,7 +41,7 @@
                             <option value="50">50</option>
                             <option value="100">100</option>
                         </select>
-                        <option class="mt-1">Daftar Tamu</option>
+                        <option class="mt-1"></option>
                     </div>
 
                     <div class="card-tools">

@@ -18,11 +18,11 @@
     <section class="content mb-5">
         <div class="container-fluid">
             <div class="btn-group mb-3 shadow-sm">
-                <a href="{{ route('listworking') }}" type="button" class="btn bg-white">
+                <a href="{{ route('listworking') }}" type="button" class="btn btn-outline-secondary ">
                     <i class="fas fa-reply mr-2"></i>List Working Permit
                 </a>
                 @role('admin')
-                <a href="{{ route('createworking') }}" type="button" class="btn bg-white">
+                <a href="{{ route('createworking') }}" type="button" class="btn btn-outline-secondary ">
                     <i class="fa fa-plus-circle mr-2"></i>Working Permit
                 </a>
                 @endrole

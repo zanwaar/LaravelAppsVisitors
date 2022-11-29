@@ -38,7 +38,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
@@ -55,14 +55,20 @@ return [
         'avatars' => [
             'driver' => 'local',
             'root' => storage_path('app/public/avatars'),
-            'url' => env('APP_URL').'/storage/avatars',
+            'url' => env('APP_URL') . '/storage/avatars',
             'visibility' => 'public',
         ],
-        
+        'upload' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/upload'),
+            'url' => env('APP_URL') . '/storage/upload',
+            'visibility' => 'public',
+        ],
+
         'images' => [
             'driver' => 'local',
             'root' => storage_path('app/public/images'),
-            'url' => env('APP_URL').'/storage/images',
+            'url' => env('APP_URL') . '/storage/images',
             'visibility' => 'public',
         ],
 

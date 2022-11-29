@@ -13,6 +13,7 @@ class AppComponent extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $searchTerm = null;
+    public $trow = 5;
 
     protected $queryString = ['searchTerm' => ['except' => '']];
 
@@ -20,8 +21,7 @@ class AppComponent extends Component
     {
         $this->resetPage();
     }
-    public $trow = 5;
-
+   
     function row($value)
     {
         $this->searchTerm = null;

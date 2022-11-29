@@ -2,9 +2,10 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
+
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Log Tamu</h1>
+                    <h1>Buku Tamu</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -20,48 +21,74 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+            <div class="row">
+
+            </div>
             <div class="btn-group mb-3 shadow-sm">
-                <a href="{{ route('daftartamu') }}" type="button" class="btn bg-white text-muted">
+                <a href="{{ route('daftartamu') }}" class="btn btn-outline-secondary shadow-sm">
                     <i class="fa fa-solid fa-address-book mr-2"></i>Daftar Tamu
                 </a>
-                <a href="{{ route('tambahtamu') }}" type="button" class="btn bg-white text-muted">
+                <a href="{{ route('tambahtamu') }}" class="btn btn-outline-secondary shadow-sm">
                     <i class="fa fa-plus-circle mr-2"></i>Tambah Tamu
                 </a>
+
                 <!-- <a wire:click.prevent="markAllAsCheckout" class="dropdown-item" href="#">Mark as cHECKOUTd</a> -->
 
             </div>
+            <div class="div mb-3 row">
+                <form class="col-5" autocomplete="off" wire:submit.prevent="fexcel">
+                    <div class="input-group shadow-sm">
+                        <input type="date" wire:model="dateawal" class="form-control" required>
+                        <input type="date" wire:model="dateakhir" class="form-control" required>
+                        <div class="input-group-append" id="button-addon4">
+                            <button class="btn btn-primary" type="submit">Export Excel Per Tanggal</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             <div class="card">
                 <div class="card-header">
-                    <div class="btn-group">
-                        <select wire:change="row($event.target.value)" class="form-control rounded shadow-sm mr-3">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        <select wire:change="maropsi($event.target.value)" style="height: 2rem; outline: 2px solid transparent;" class="px-1 rounded border-0 mr-3">
-                            <option value="TODAY">Hari ini</option>
-                            <option value="MTD">Bulan ini</option>
-                            <option value="YTD">Tahun ini</option>
-                            <option value="ALL">Tamplikan Semua</option>
-                        </select>
+                    <div class="float-left ">
+                        <div class="row">
+                            <div class="col-4">
+                                <select wire:change="row($event.target.value)" class="form-control rounded shadow-sm mr-3">
+                                 
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <select wire:change="maropsi($event.target.value)" class="form-control px-1 rounded mr-3 shadow-sm">
+                                    <option value="ALL">All</option>
+                                    <option value="TODAY">Hari ini</option>
+                                    <option value="MTD">Bulan ini</option>
+                                    <option value="YTD">Tahun ini</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    @if ($selectedRows)
 
-                    <div class="btn-group">
-
-                        <button wire:click.prevent="markAllAsCheckout" type="button" class="btn btn-success btn-sm">
-                            CheckOut
-                        </button>
-                        <button wire:click.prevent="markAllAsCheckin" type="button" class="btn btn-danger btn-sm">
-                            Batal CheckOut
-                        </button>
-                    </div>
-                    @endif
 
                     <div class="float-right">
+                        @if ($selectedRows)
+
+                        <div class="btn-group shadow-sm mr-3">
+                            <button wire:click.prevent="markAllAsCheckout" type="button" class="btn btn-outline-secondary">
+                                CheckOut
+                            </button>
+                            <button wire:click.prevent="markAllAsCheckin" type="button" class="btn btn-outline-secondary">
+                                Batal CheckOut
+                            </button>
+                            <button wire:click.prevent="export" type="button" class="btn btn-outline-secondary">
+                                Export Excel
+                            </button>
+                        </div>
+                        @endif
                         <div class="btn-group">
 
                             <div class=" input-group input-group-sm">
@@ -120,7 +147,7 @@
                                     <td style="vertical-align:middle;"> <span class="badge badge-primary  px-1">CHECKIN</span></td>
                                     @endif
                                     <td style="vertical-align:middle;">
-                                        <img src="{{url('storage/upload/'.$ts->foto)}}" wire:click.prevent="btndetail({{ $ts }})" class="img d-block mt-2 rounded" width="100" height="">
+                                        <img src="{{$ts->foto_url}}" wire:click.prevent="btndetail({{ $ts }})" class="img d-block mt-2 rounded" width="100" height="">
                                     </td>
                                 </tr>
                                 @empty
@@ -149,7 +176,7 @@
         <!-- /.col -->.
     </section>
     <!-- Modal -->
-    <div class="modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+    <div class="modal fade" id="ExportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -162,7 +189,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i> Cancel</button>
-                    <button type="button" wire:click.prevent="delete" class="btn btn-danger"><i class="fa fa-trash mr-1"></i>Delete</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i>Import</button>
                 </div>
             </div>
         </div>

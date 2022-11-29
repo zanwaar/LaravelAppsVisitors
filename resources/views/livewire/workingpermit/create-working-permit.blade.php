@@ -24,7 +24,7 @@
                             <form autocomplete="off" wire:submit.prevent="create">
                                 <div class="form-group">
                                     <label for="inputAddress">Mitra</label>
-                                    <input type="text" wire:model.defer="state.mitra" class="form-control @error('mitra') is-invalid @enderror" id="mitra" placeholder="Mitra ">
+                                    <input type="text" wire:model.defer="mitra" class="form-control @error('mitra') is-invalid @enderror" id="mitra" placeholder="Mitra ">
                                     @error('mitra')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="form-group ">
                                     <label for="inputCity">Judul Pekerjaan</label>
-                                    <input type="text" wire:model.defer="state.judulpekerjaan" class="form-control @error('judulpekerjaan') is-invalid @enderror" id="judulpekerjaan" placeholder="Judul Pekerjaan ">
+                                    <input type="text" wire:model.defer="judulpekerjaan" class="form-control @error('judulpekerjaan') is-invalid @enderror" id="judulpekerjaan" placeholder="Judul Pekerjaan ">
                                     @error('judulpekerjaan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputAddress">Nama Kordinator Mitra</label>
-                                    <input type="text" wire:model.defer="state.nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="nama ">
+                                    <input type="text" wire:model.defer="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="nama ">
                                     @error('nama')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -53,7 +53,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="inputAddress">No Wp</label>
-                                        <input type="text" wire:model.defer="state.nowp" class="form-control @error('nowp') is-invalid @enderror" id="nowp" placeholder="nowp ">
+                                        <input type="text" wire:model.defer="nowp" class="form-control @error('nowp') is-invalid @enderror" id="nowp" placeholder="nowp ">
                                         @error('nowp')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputAddress">No Handphone</label>
-                                        <input type="text" wire:model.defer="state.tlpn" class="form-control @error('tlpn') is-invalid @enderror" id="tlpn" placeholder="tlpn ">
+                                        <input type="text" wire:model.defer="tlpn" class="form-control @error('tlpn') is-invalid @enderror" id="tlpn" placeholder="tlpn ">
                                         @error('tlpn')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -75,10 +75,10 @@
                                 <div class="form-row">
 
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="inputCity">Titik Kordinat</label>
-                                            <input type="text" name="titikkor" id="titikkor" wire:model.defer="state.titikkor" class="form-control @error('lokasi') is-invalid @enderror" placeholder="Lokasi">
+                                            <input type="text" name="titikkor" id="titikkor" wire:model.defer="titikkor" class="form-control @error('titikkor') is-invalid @enderror" placeholder="Lokasi">
                                             @error('titikkor')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -88,7 +88,7 @@
 
                                         <div class="form-group">
                                             <label for="inputCity">Lokasi</label>
-                                            <input type="text" wire:model.defer="state.lokasi" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" placeholder="Lokasi">
+                                            <input type="text" wire:model.defer="lokasi" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" placeholder="Lokasi">
                                             @error('lokasi')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -101,7 +101,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                                 </div>
-                                                <x-datepicker wire:model.defer="state.tglawal" id="tglawal" :error="'tglawal'" />
+                                                <x-datepicker wire:model.defer="tglawal" id="tglawal" :error="'tglawal'" />
 
                                             </div>
                                             @error('tglawal')
@@ -116,7 +116,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                                 </div>
-                                                <x-datepicker wire:model.defer="state.tglakhir" id="tglakhir" :error="'tglakhir'" />
+                                                <x-datepicker wire:model.defer="tglakhir" id="tglakhir" :error="'tglakhir'" />
 
                                             </div>
                                             @error('tglakhir')
@@ -157,7 +157,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-7">
                                         <label for="inputAddress">Peta</label>
                                         @include('livewire/workingpermit/js')
                                         @error('log')

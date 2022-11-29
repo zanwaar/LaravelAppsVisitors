@@ -48,7 +48,7 @@
             marker.setLatLng(pos, {
                 cor
             })
-            $("#titikor").val(pos.lat + "," + pos.lng);
+            $("#titikkor").val(pos.lat + "," + pos.lng);
         }
 
         map.on('click', onMapClick);
@@ -72,7 +72,7 @@
 </script>
 <script>
     $('form').submit(function() {
-        @this.set('state.titikkor', $('#titikkor').val());
+        @this.set('titikkor', $('#titikkor').val());
     })
 </script>
 <script type="text/javascript" src="https://unpkg.com/moment"></script>

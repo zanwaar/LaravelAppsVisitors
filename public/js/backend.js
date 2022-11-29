@@ -38,6 +38,9 @@
     window.addEventListener("importModal", function (event) {
         $("#importModal").modal("show");
     });
+    window.addEventListener("ExportModal", function (event) {
+        $("#ExportModal").modal("show");
+    });
     window.addEventListener("show-diambil", function (event) {
         $("#Diambil").modal("show");
     });

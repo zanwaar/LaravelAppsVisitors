@@ -10,8 +10,7 @@ class ActivityLog extends AppComponent
 
     public function render()
     {
-        $mlog = Activity::latest()
-            ->paginate(15);
+        $mlog = Activity::latest()->paginate($this->trow);
         return view('livewire.activity-log.activity-log', ['log' => $mlog,]);
     }
 }

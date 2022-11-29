@@ -31,6 +31,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <select wire:change="row($event.target.value)" class="form-control rounded shadow-sm mr-3">
+                                    <option value="1">1</option>
                                     <option value="5">5</option>
                                     <option value="10">10</option>
                                     <option value="15">15</option>

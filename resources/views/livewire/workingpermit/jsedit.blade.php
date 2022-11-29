@@ -44,6 +44,7 @@
                     cor
                 })
                 $("#titikkor").val(pos.lat + "," + pos.lng);
+
             }
 
             map.on('click', onMapClick);

@@ -14,36 +14,45 @@ use Maatwebsite\Excel\Facades\Excel;
 class CreateWorkingPermit extends Component
 {
     use WithFileUploads;
-    public $state = [];
+    public $mitra;
+    public $nama;
+    public $nowp;
+    public $tlpn;
+    public $titikkor;
+    public $judulpekerjaan;
+    public $lokasi;
+    public $tglawal;
+    public $tglakhir;
     public $fileimport;
 
+    protected $rules = [
+        'mitra' => 'required',
+        'nama' => 'required',
+        'nowp' => 'required',
+        'tlpn' => 'required',
+        'titikkor' => 'required',
+        'judulpekerjaan' => 'required',
+        'lokasi' => 'required',
+        'tglawal' => 'required',
+        'tglakhir' => 'required',
+        'fileimport' => 'required',
+    ];
     public function create()
     {
 
-        Validator::make($this->state, [
-            'mitra' => 'required',
-            'nama' => 'required',
-            'nowp' => 'required',
-            'tlpn' => 'required',
-            'titikkor' => 'required',
-            'judulpekerjaan' => 'required',
-            'lokasi' => 'required',
-            'tglawal' => 'required',
-            'tglakhir' => 'required',
-        ])->validate();
-
+        $this->validate();
         DB::beginTransaction();
         try {
             $mitra = Workingpermit::create([
-                'mitra' => $this->state['mitra'],
-                'nama' => $this->state['nama'],
-                'nowp' => $this->state['nowp'],
-                'tlpn' => $this->state['tlpn'],
-                'titikkor' => $this->state['titikkor'],
-                'judulpekerjaan' => $this->state['judulpekerjaan'],
-                'lokasi' => $this->state['lokasi'],
-                'tglawal' => $this->state['tglawal'],
-                'tglakhir' => $this->state['tglakhir'],
+                'mitra' => $this->mitra,
+                'nama' => $this->nama,
+                'nowp' => $this->nowp,
+                'tlpn' => $this->tlpn,
+                'titikkor' => $this->titikkor,
+                'judulpekerjaan' => $this->judulpekerjaan,
+                'lokasi' => $this->lokasi,
+                'tglawal' => $this->tglawal,
+                'tglakhir' => $this->tglakhir,
             ]);
             Excel::import(new PersonilImport($mitra->id), $this->fileimport);
             DB::commit();
