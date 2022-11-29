@@ -2,11 +2,10 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/svg+xml" href="{{ setting('logo_url') ?? '' }}" />
     <title>{{ setting('site_title') }} | {{ setting('site_name') }}</title>
     @stack('jsheader')
     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
@@ -78,7 +77,12 @@
                     <a href="{{ route('settings') }}"><i class="material-icons">settings</i><span>Settings</span></a>
                 </li>
                 @endrole
-
+                <li class="">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"><i class="material-icons">logout</i><span>Logout</span></a>
+                    </form>
+                </li>
             </ul>
         </nav>
         <div id="content">

@@ -31,10 +31,10 @@
                             <option value="100">100</option>
                         </select>
                     </div>
-                    <div class="btn-group-sm pt-1 btn-group">
-                        <button wire:click="filterBarangsByStatus('')" type="button" class="btn btn-default">ALL</button>
-                        <button wire:click="filterBarangsByStatus(0)" type="button" class="btn btn-warning ">Belum Diambil</button>
-                        <button wire:click="filterBarangsByStatus(1)" type="button" class="btn btn-primary ">Sudah Diambil</button>
+                    <div class="btn-group shadow-sm btn-group">
+                        <button wire:click="filterBarangsByStatus('')" type="button" class="btn btn-outline-secondary">ALL</button>
+                        <button wire:click="filterBarangsByStatus(0)" type="button" class="btn btn-outline-secondary">Belum Diambil</button>
+                        <button wire:click="filterBarangsByStatus(1)" type="button" class="btn btn-outline-secondary">Sudah Diambil</button>
                     </div>
                     <div class="float-right">
                         <div class="btn-group">

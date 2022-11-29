@@ -10,7 +10,6 @@ use App\Http\Livewire\Profile\UpdateProfile;
 use App\Http\Livewire\Settings\UpdateSetting;
 use App\Http\Livewire\Tamu\CreateTamu;
 use App\Http\Livewire\Tamu\ListTamu;
-use App\Http\Livewire\Tamu\Log;
 use App\Http\Livewire\Tamu\LogTamu;
 use App\Http\Livewire\Users\ListUsers;
 use App\Http\Livewire\Workingpermit\CreateWorkingPermit;

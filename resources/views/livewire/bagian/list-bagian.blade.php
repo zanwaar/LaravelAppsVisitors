@@ -37,7 +37,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="btn-group-sm pt-1 btn-group">
+                    <div class="btn-group shadow-sm btn-group">
                         <button wire:click.prevent="addNew" class="btn btn-info"><i class="fa fa-plus-circle mr-1"></i>Tambah Bagian</button>
 
                         <button type="button" class="btn btn-default" data-toggle="modal" wire:click.prevent="swohimport()">Import Excel</button>

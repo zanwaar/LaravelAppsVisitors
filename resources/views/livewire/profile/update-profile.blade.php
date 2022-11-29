@@ -51,8 +51,8 @@
                     <div class="card" x-data="{ currentTab: $persist('profile') }">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills" wire:ignore>
-                                <li @click.prevent="currentTab = 'profile'" class="nav-item"><a class="nav-link" :class="currentTab === 'profile' ? 'active' : ''" href="#profile" data-toggle="tab"><i class="fa fa-user mr-1"></i> Edit Profile</a></li>
-                                <li @click.prevent="currentTab = 'changePassword'" class="nav-item"><a class="nav-link" :class="currentTab === 'changePassword' ? 'active' : ''" href="#changePassword" data-toggle="tab"><i class="fa fa-key mr-1"></i> Change
+                                <li @click.prevent="currentTab = 'profile'" class="nav-item"><a class="nav-link" :class="currentTab === 'profile' ? 'active text-white' : ''" href="#profile" data-toggle="tab"><i class="fa fa-user mr-1"></i> Edit Profile</a></li>
+                                <li @click.prevent="currentTab = 'changePassword'" class="nav-item"><a class="nav-link" :class="currentTab === 'changePassword' ? 'active text-white' : ''" href="#changePassword" data-toggle="tab"><i class="fa fa-key mr-1"></i> Change
                                         Password</a></li>
                             </ul>
                         </div><!-- /.card-header -->
