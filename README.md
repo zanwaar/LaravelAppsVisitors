@@ -1,10 +1,5 @@
 # Aplikasi Visitors
 
--   fitur Login
--   User Management
--   log aktifitas
--   Tamu
-
 ## Installation
 
 -   Clone the repository
