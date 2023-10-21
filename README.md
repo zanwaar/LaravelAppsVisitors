@@ -8,12 +8,11 @@
 -   `php artisan key:generate`
 -   `php artisan storage:link` 
 -   vendor spatie model set uuid
--   $logger->tap(function (Activity $activity) {
--   $activity->ip = Requestip::ip();
--   });
--   set Google NOCAPTCHA_SECRET
+-   use Uuid;
+-   protected $keyType = 'string';
+-   public $incrementing = false;`
+-   le NOCAPTCHA_SECRET
 -   Migrate and seed the database with `php artisan migrate:fresh --seed`
--   uuid role dan permision di vendor sparti
 -   You can now log in with user "admin@gmail.com", password "password"
 
 ## License

@@ -13,13 +13,13 @@ class Setting extends Model
 {
     use HasFactory;
     use LogsActivity;
-    protected static $logName = 'Setting';
-    protected static $logFillable = true;
+    // protected static $logName = 'Setting';
+    // protected static $logFillable = true;
 
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return  Auth::user()->name . " Melakukan {$eventName} Pada Model Settings";
-    }
+    // public function getDescriptionForEvent(string $eventName): string
+    // {
+    //     return  Auth::user()->name . " Melakukan {$eventName} Pada Model Settings";
+    // }
 
     public $fillable = [
         'site_email',
